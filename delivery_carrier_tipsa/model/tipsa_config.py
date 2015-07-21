@@ -18,17 +18,14 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, fields, api
+from openerp import models, fields
 
 
-class DeliveryCarrier(models.Model):
-    _inherit = 'delivery.carrier'
+class TipsaConfig(models.Model):
+    _name = 'tipsa.config'
 
-    @api.model
-    def _get_carrier_type_selection(self):
-        """ Add Tipsa carrier type """
-        res = super(DeliveryCarrier, self)._get_carrier_type_selection()
-        res.append(('tipsa', 'Tipsa'))
-        return res
-
-    tipsa_config_id = fields.Many2one('tipsa.config', string='Tipsa Config')
+    name = fields.Char("Configuration Description", required=True)
+    is_test = fields.Boolean('Is a test?')
+    agency_code = fields.Char("Agency Code", required=True)
+    customer_code = fields.Char("Customer Code", required=True)
+    customer_password = fields.Char("Customer Password", required=True)

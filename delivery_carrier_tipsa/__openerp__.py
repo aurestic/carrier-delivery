@@ -28,8 +28,11 @@
         'base_delivery_carrier_label'
     ],
     'website': 'http://factorlibre.com',
-    'data': [],
-    'demo': [],
+    'data': [
+        'security/ir.model.access.csv',
+        'view/tipsa_config_view.xml',
+        'view/delivery_view.xml'
+    ],
     'installable': True,
     'auto_install': False,
     'license': 'AGPL-3',
