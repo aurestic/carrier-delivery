@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -33,6 +34,11 @@ class LogPlugin(MessagePlugin):
 
     def received(self, context):
         _logger.info(context.reply.decode('utf-8', errors='ignore'))
+
+    def marshalled(self, context):
+        #remove empty tags inside the Body element
+        #context.envelope[0] is the SOAP-ENV:Header element
+        context.envelope[1].prune()
 
 
 class TipsaConfig(object):
