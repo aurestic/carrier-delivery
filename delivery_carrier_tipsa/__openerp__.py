@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -31,7 +32,8 @@
     'data': [
         'security/ir.model.access.csv',
         'view/tipsa_config_view.xml',
-        'view/delivery_view.xml'
+        'view/delivery_view.xml',
+        'view/stock_view.xml'
     ],
     'installable': True,
     'auto_install': False,
