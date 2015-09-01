@@ -65,6 +65,10 @@ class StockPicking(models.Model):
         if self.partner_id.street2:
             partner_address = u"{0}, {1}".format(partner_address,
                                                  self.partner_id.street2)
+        nom_dest = self.partner_id.name
+        if self.partner_id.parent_id:
+            nom_dest = u"{} Att: {}".format(
+                self.partner_id.parent_id.name, self.partner_id.name)
         send_mail_warning = False
         email_warning = None
         if self.partner_id.email:
@@ -84,7 +88,7 @@ class StockPicking(models.Model):
                 strPobOri=warehouse_partner.city or '',
                 strCPOri=warehouse_partner.zip,
                 strTlfOri=warehouse_partner.phone or '',
-                strNomDes=self.partner_id.name, strDirDes=partner_address,
+                strNomDes=nom_dest, strDirDes=partner_address,
                 strCPDes=self.partner_id.zip,
                 strPobDes=self.partner_id.city or '',
                 strTlfDes=self.partner_id.phone or '',
