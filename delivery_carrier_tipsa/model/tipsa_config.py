@@ -19,14 +19,27 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, fields
+from openerp import models, fields, api
 
 
 class TipsaConfig(models.Model):
     _name = 'tipsa.config'
+
+    @api.model
+    def _get_tipsa_report_format(self):
+        return [
+            ('90', 'Default'),
+            ('99', 'NUEVA etiqueta drivers'),
+            ('100',
+             'Etiquetas nuevas por códigos de escape (Modelo LP 2844-Z)'),
+            ('101',
+             'Etiquetas nuevas por códigos de escape (Modelo LP 2844)'),
+        ]
 
     name = fields.Char("Configuration Description", required=True)
     is_test = fields.Boolean('Is a test?')
     agency_code = fields.Char("Agency Code", required=True)
     customer_code = fields.Char("Customer Code", required=True)
     customer_password = fields.Char("Customer Password", required=True)
+    report_format = fields.Selection('_get_tipsa_report_format',
+                                     string="Report Format", required=True)

@@ -51,7 +51,8 @@ class StockPicking(models.Model):
                     self.warehouse_id.name))
         warehouse_partner = self.picking_type_id.warehouse_id.partner_id
 
-        tipsa_login = TipsaLogin(self.carrier_id.tipsa_config_id)
+        tipsa_config = self.carrier_id.tipsa_config_id
+        tipsa_login = TipsaLogin(tipsa_config)
         login_session = tipsa_login.session_code()
         tipsa_ws = TipsaWebService(self.carrier_id.tipsa_config_id,
                                    login_session)
@@ -103,7 +104,8 @@ class StockPicking(models.Model):
         picking_ref = envio_response.strAlbaranOut
         try:
             shipping_label = tipsa_ws.client.service.ConsEtiquetaEnvio3(
-                strAlbaran=picking_ref)
+                strAlbaran=picking_ref,
+                intIdRepDet=int(tipsa_config.report_format or 90))
         except Exception, e:
             raise exceptions.Warning(e.message)
 
