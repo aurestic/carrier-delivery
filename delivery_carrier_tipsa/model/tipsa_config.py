@@ -36,6 +36,13 @@ class TipsaConfig(models.Model):
              'Etiquetas nuevas por códigos de escape (Modelo LP 2844)'),
         ]
 
+    @api.model
+    def _get_tipsa_report_file(self):
+        return [
+            ('PDF', 'PDF'),
+            ('TXT', 'TXT')
+        ]
+
     name = fields.Char("Configuration Description", required=True)
     is_test = fields.Boolean('Is a test?')
     agency_code = fields.Char("Agency Code", required=True)
@@ -43,3 +50,6 @@ class TipsaConfig(models.Model):
     customer_password = fields.Char("Customer Password", required=True)
     report_format = fields.Selection('_get_tipsa_report_format',
                                      string="Report Format", required=True)
+    report_extension = fields.Selection('_get_tipsa_report_file',
+                                        string="Report extension",
+                                        required=True)

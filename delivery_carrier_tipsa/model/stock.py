@@ -24,6 +24,17 @@ from openerp import models, fields, api, exceptions, _
 from ..webservice.tipsa_api import TipsaLogin, TipsaWebService
 
 
+class ShippingLabel(models.Model):
+    _inherit = 'shipping.label'
+
+    @api.model
+    def _get_file_type_selection(self):
+        """ To inherit to add file type """
+        res = super(ShippingLabel, self)._get_file_type_selection()
+        res.append(('txt', 'TXT'))
+        return res
+
+
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
@@ -103,16 +114,22 @@ class StockPicking(models.Model):
 
         picking_ref = envio_response.strAlbaranOut
         try:
-            shipping_label = tipsa_ws.client.service.ConsEtiquetaEnvio3(
+            shipping_label = tipsa_ws.client.service.ConsEtiquetaEnvio4(
                 strAlbaran=picking_ref,
-                intIdRepDet=int(tipsa_config.report_format or 90))
+                intIdRepDet=int(tipsa_config.report_format or 90),
+                strFormato=tipsa_config.report_extension)
         except Exception, e:
             raise exceptions.Warning(e.message)
 
+        file_extension = tipsa_config.report_extension.lower()
+        if file_extension == 'txt':
+            file_contents = shipping_label.encode('utf-8')
+        else:
+            file_contents = shipping_label.decode('base64')
         label = {
-            'file': shipping_label.decode('base64'),
-            'file_type': 'pdf',
-            'name': picking_ref + '.pdf',
+            'file': file_contents,
+            'file_type': file_extension,
+            'name': picking_ref + "." + file_extension,
         }
 
         self.write({'carrier_tracking_ref': picking_ref})

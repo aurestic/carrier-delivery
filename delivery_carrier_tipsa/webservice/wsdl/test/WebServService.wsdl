@@ -796,6 +796,23 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
+            <xs:element name="WebServService___ConsEtiquetaEnvio4">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="strCodAgeOri" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                        <xs:element name="strAlbaran" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                        <xs:element name="intIdRepDet" minOccurs="1" maxOccurs="1" type="xs:int"/>
+                        <xs:element name="strFormato" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="WebServService___ConsEtiquetaEnvio4Response">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="strEtiqueta" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
             <xs:element name="WebServService___GrabaPedido">
                 <xs:complexType>
                     <xs:sequence>
@@ -1118,6 +1135,12 @@
     <wsdl:message name="WebServService___ConsEtiquetaEnvio3Response">
         <wsdl:part name="parameters" element="tns:WebServService___ConsEtiquetaEnvio3Response"/>
     </wsdl:message>
+    <wsdl:message name="WebServService___ConsEtiquetaEnvio4Request">
+        <wsdl:part name="parameters" element="tns:WebServService___ConsEtiquetaEnvio4"/>
+    </wsdl:message>
+    <wsdl:message name="WebServService___ConsEtiquetaEnvio4Response">
+        <wsdl:part name="parameters" element="tns:WebServService___ConsEtiquetaEnvio4Response"/>
+    </wsdl:message>
     <wsdl:message name="WebServService___GrabaPedidoRequest">
         <wsdl:part name="parameters" element="tns:WebServService___GrabaPedido"/>
     </wsdl:message>
@@ -1273,6 +1296,10 @@
         <wsdl:operation name="ConsEtiquetaEnvio3">
             <wsdl:input message="tns:WebServService___ConsEtiquetaEnvio3Request"/>
             <wsdl:output message="tns:WebServService___ConsEtiquetaEnvio3Response"/>
+        </wsdl:operation>
+        <wsdl:operation name="ConsEtiquetaEnvio4">
+            <wsdl:input message="tns:WebServService___ConsEtiquetaEnvio4Request"/>
+            <wsdl:output message="tns:WebServService___ConsEtiquetaEnvio4Response"/>
         </wsdl:operation>
         <wsdl:operation name="GrabaPedido">
             <wsdl:input message="tns:WebServService___GrabaPedidoRequest"/>
@@ -1511,6 +1538,17 @@
         </wsdl:operation>
         <wsdl:operation name="ConsEtiquetaEnvio3">
             <soap:operation soapAction="urn:DinaPaq-WebServService#ConsEtiquetaEnvio3" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <soap:header message="tns:ROClientIDHeaderMessage" use="literal" part="ROClientID"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+                <soap:header message="tns:ROClientIDHeaderMessage" use="literal" part="ROClientID"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ConsEtiquetaEnvio4">
+            <soap:operation soapAction="urn:DinaPaq-WebServService#ConsEtiquetaEnvio4" style="document"/>
             <wsdl:input>
                 <soap:body use="literal"/>
                 <soap:header message="tns:ROClientIDHeaderMessage" use="literal" part="ROClientID"/>

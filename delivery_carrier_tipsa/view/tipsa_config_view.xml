@@ -31,10 +31,11 @@
                                 <field name="agency_code"/>
                                 <field name="customer_code"/>
                                 <field name="customer_password" password="True"/>
-                                <field name="report_format"/>
                             </group>
                             <group>
                                 <field name="is_test" class="oe_inline"/>
+                                <field name="report_format"/>
+                                <field name="report_extension"/>
                             </group>
                         </group>
                     </sheet>
