@@ -22,7 +22,11 @@ import urllib
 from datetime import datetime, timedelta
 from openerp import models, fields, api, exceptions
 from openerp.tools.translate import _
+import httplib
+import base64
+
 import tnt
+
 
 
 def getTNTDC(code):
@@ -78,7 +82,7 @@ class StockPicking(models.Model):
         requestlabel.consignment[0].sender.name = warehouse_address.name
         requestlabel.consignment[0].sender.addressLine1 = warehouse_address.street
         if warehouse_address.street2:
-            requestlabel.consignment[0].sender.addressLine2 = warehouse_address.street
+            requestlabel.consignment[0].sender.addressLine2 = warehouse_address.street2
         requestlabel.consignment[0].sender.town = warehouse_address.city
         requestlabel.consignment[0].sender.exactMatch = 'N'
         requestlabel.consignment[0].sender.province = warehouse_address.state_id.name or ''
@@ -98,9 +102,9 @@ class StockPicking(models.Model):
         requestlabel.consignment[0].delivery.country = self.partner_id.country_id.code or ''
 
         requestlabel.consignment[0].contact = tnt.contactType()
-        requestlabel.consignment[0].name = self.partner_id.name or ''
-        requestlabel.consignment[0].telephoneNumber = self.partner_id.phone or ''
-        requestlabel.consignment[0].emailAddress = self.partner_id.email or ''
+        requestlabel.consignment[0].contact.name = (self.partner_id and self.partner_id.parent_id and self.partner_id.parent_id.name) or (self.partner_id and self.partner_id.name) or ''
+        requestlabel.consignment[0].contact.telephoneNumber = self.partner_id.phone or ''
+        requestlabel.consignment[0].contact.emailAddress = self.partner_id.email or ''
 
         requestlabel.consignment[0].product = tnt.productType()
         requestlabel.consignment[0].product.lineOfBusiness = '1'
@@ -110,8 +114,8 @@ class StockPicking(models.Model):
         requestlabel.consignment[0].product.type = 'N'
 
         requestlabel.consignment[0].account = tnt.accountType()
-        requestlabel.consignment[0].account.accountNumber = '123456'
-        requestlabel.consignment[0].account.accountCountry = 'ES'
+        requestlabel.consignment[0].account.accountNumber = self.carrier_id.tnt_config_id.account_number
+        requestlabel.consignment[0].account.accountCountry = self.carrier_id.tnt_config_id.account_country
 
         requestlabel.consignment[0].totalNumberOfPieces = self.number_of_packages or 1
 
@@ -120,16 +124,37 @@ class StockPicking(models.Model):
         desc = ','.join([move.name[0:5] for move in self.move_lines])
         requestlabel.consignment[0].pieceLine[0].goodsDescription = desc[0:30]
         requestlabel.consignment[0].pieceLine[0].pieceMeasurements = tnt.measurementsType()
-        requestlabel.consignment[0].pieceLine[0].pieceMeasurements.length = 0.01
-        requestlabel.consignment[0].pieceLine[0].pieceMeasurements.width = 0.01
-        requestlabel.consignment[0].pieceLine[0].pieceMeasurements.height = 0.01
-        requestlabel.consignment[0].pieceLine[0].pieceMeasurements.weight = 0.01
+        requestlabel.consignment[0].pieceLine[0].pieceMeasurements.length = self.carrier_id.tnt_config_id.length_package
+        requestlabel.consignment[0].pieceLine[0].pieceMeasurements.width = self.carrier_id.tnt_config_id.width_package
+        requestlabel.consignment[0].pieceLine[0].pieceMeasurements.height = self.carrier_id.tnt_config_id.height_package
+        requestlabel.consignment[0].pieceLine[0].pieceMeasurements.weight = self.weight or 1
 
         requestlabel.consignment[0].pieceLine[0].pieces.append(tnt.pieceType())
         requestlabel.consignment[0].pieceLine[0].pieces[0].sequenceNumbers = str(range(1,(self.number_of_packages or 1)+1)).strip('[]').replace(' ','')
         requestlabel.consignment[0].pieceLine[0].pieces[0].pieceReference = 'COMPONENT'
-        
-        return requestlabel.toxml("utf-8")
+        message = requestlabel.toxml("utf-8")
+
+
+        host = "express.tnt.com"
+        url = "/expresslabel/documentation/getlabel"
+        username = self.carrier_id.tnt_config_id.username
+        password = self.carrier_id.tnt_config_id.password
+
+
+        auth = base64.encodestring('%s:%s' % (username, password)).replace('\n', '')
+        webservice = httplib.HTTPS(host)
+        webservice.putrequest("POST", url)
+        webservice.putheader("Host", host)
+        webservice.putheader("User-Agent", "Python http auth")
+        webservice.putheader("Content-type", "text/xml")
+        webservice.putheader("Content-length", "%d" % len(message))
+        webservice.putheader("Authorization", "Basic %s" % auth)
+        webservice.endheaders()
+        webservice.send(message)
+        statuscode, statusmessage, header = webservice.getreply()
+        res = webservice.getfile().read()
+
+        return res
 
     @api.multi
     def _generate_tnt_label(self, package_ids=None):

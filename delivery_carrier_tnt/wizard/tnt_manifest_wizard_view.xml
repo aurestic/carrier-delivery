@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="seur_manifest_wizard_form" model="ir.ui.view">
+            <field name="name">seur.manifest.wizard.form</field>
+            <field name="model">seur.manifest.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Seur Manifest" version="7.0">
+                    <field name="state" invisible="1"/>
+                    <group attrs="{'invisible': [('state', '!=', 'init')]}">
+                        <field name="from_date"/>
+                    </group>
+                    <group attrs="{'invisible': [('state', '!=', 'file')]}">
+                        <field name="file" filename="filename"/>
+                        <field name="filename" invisible="1"/>
+                    </group>
+                    <footer attrs="{'invisible': [('state', '!=', 'init')]}">
+                        <button name="get_manifest_file" type="object"
+                            string="Get Manifest File" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="seur_manifest_wizard_action" model="ir.actions.act_window">
+            <field name="name">Seur Manifest</field>
+            <field name="res_model">seur.manifest.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="seur_manifest_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="seur_manifest_wizard_menu"
+            action="seur_manifest_wizard_action" string="Seur Manifest"
+            parent="stock.menu_stock_warehouse_mgmt"/>
+
+    </data>
+</openerp>

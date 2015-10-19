@@ -25,17 +25,13 @@ class TntConfig(models.Model):
 
     name = fields.Char('Name', required=True)
     is_test = fields.Boolean('Is a test?')
-    #franchise_code = fields.Char('Franchise Code', required=True)
-    #subscriber_code = fields.Char('Subscriber Code', required=True)
-    #department_code = fields.Char('Department Code')
-    #username = fields.Char('Username', required=True)
-    #password = fields.Char('Password', required=True)
-    #url = fields.Char("URL webservice", required=True)
-    #prefijo_consignment = fields.Char("Prefijo consignment", required = True)
+    username = fields.Char('Username', required=True)
+    password = fields.Char('Password', required=True)
     time = fields.Float("Collection Time", required = True)
     min_range_code = fields.Char('Min Code', size=8,  required=True)
     max_range_code = fields.Char('Max Code', size=8, required=True)
-    #DEFAULTS
-    #prefijo->CON
-    #url->https://express.tnt.com/expresslabel/documentation/getlabel
-    #time -> 10.5
+    account_number = fields.Char('Account number', required=True)
+    account_country = fields.Char('Account country', size=2, required=True)
+    length_package = fields.Float('Package length',  required=True)
+    width_package = fields.Float('Package width',  required=True)
+    height_package = fields.Float('Package height',  required=True)
