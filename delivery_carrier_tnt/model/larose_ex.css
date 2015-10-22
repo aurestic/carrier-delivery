@@ -1,0 +1,153 @@
+#errorLogo {
+    background-color: #FFFFFF;
+    float: left;
+    height: 65px;
+    padding-bottom: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
+    text-align: center;
+    width: 125px;
+}
+#errorLogo img {
+    float: left;
+    height: 65px;
+    text-align: center;
+}
+#errorBox {
+    border-bottom-style: none;
+    border-collapse: collapse;
+    border-left-style-ltr-source: physical;
+    border-left-style-rtl-source: physical;
+    border-left-style-value: none;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: none;
+    border-top-style: none;
+    page-break-after: always;
+    width: 384px;
+}
+#errorHeader {
+    font-size: 23px;
+    font-weight: bold;
+    height: 45px;
+    padding-bottom: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
+    text-align: left;
+}
+#errorCode {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-collapse: collapse;
+    border-left-style-ltr-source: physical;
+    border-left-style-rtl-source: physical;
+    border-left-style-value: solid;
+    border-left-width-ltr-source: physical;
+    border-left-width-rtl-source: physical;
+    border-left-width-value: 1px;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: solid;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-style: none;
+    border-top-width: 1px;
+    float: left;
+    height: 20px;
+    width: 385px;
+}
+#errorCodeHeader {
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: solid;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    float: left;
+    font-size: 17px;
+    font-weight: bold;
+    padding-left: 4px;
+    text-align: left;
+    width: 125px;
+}
+#errorCodeDetail {
+    font-size: 17px;
+    font-weight: normal;
+    padding-left: 4px;
+    text-align: left;
+}
+#errorConNumber {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-collapse: collapse;
+    border-left-style-ltr-source: physical;
+    border-left-style-rtl-source: physical;
+    border-left-style-value: solid;
+    border-left-width-ltr-source: physical;
+    border-left-width-rtl-source: physical;
+    border-left-width-value: 1px;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: solid;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    float: left;
+    height: 20px;
+    width: 385px;
+}
+#errorConNumberHeader {
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: solid;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    float: left;
+    font-size: 17px;
+    font-weight: bold;
+    padding-left: 4px;
+    text-align: left;
+    width: 125px;
+}
+#errorConNumberDetail {
+    font-size: 17px;
+    font-weight: normal;
+    padding-left: 4px;
+    text-align: left;
+}
+#errorDescription {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-collapse: collapse;
+    border-left-style-ltr-source: physical;
+    border-left-style-rtl-source: physical;
+    border-left-style-value: solid;
+    border-left-width-ltr-source: physical;
+    border-left-width-rtl-source: physical;
+    border-left-width-value: 1px;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: solid;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-style: none;
+    border-top-width: 1px;
+    float: left;
+    height: auto;
+    margin-bottom: 5px;
+    width: 385px;
+}
+#errorDescriptionDetail {
+    float: left;
+    font-size: 17px;
+    font-weight: normal;
+    padding-left: 4px;
+    text-align: left;
+}

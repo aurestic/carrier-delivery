@@ -20,14 +20,26 @@
 ##############################################################################
 import urllib
 from datetime import datetime, timedelta
-from openerp import models, fields, api, exceptions
+from openerp import models, fields, api, exceptions, tools
 from openerp.tools.translate import _
 import httplib
 import base64
-
+import tempfile
+from lxml import etree
 import tnt
+import os
+import sys
+import subprocess
+import logging
+_logger = logging.getLogger(__name__)
 
-
+def transform(name, path, xmlname, xslname):
+    dom = etree.parse(path+xmlname)
+    xslt = etree.parse(path+xslname)
+    transform = etree.XSLT(xslt)
+    newdom = transform(dom, css_dir="'file://"+path+"'")
+    html_label = etree.tostring(newdom, pretty_print=True)
+    return html_label
 
 def getTNTDC(code):
 
@@ -166,20 +178,54 @@ class StockPicking(models.Model):
                 _('Please define an address in the %s warehouse') % (
                     self.warehouse_id.name))
         response = self._tnt_transm_envio_request()
+        current_path = os.path.join(os.path.dirname(os.path.abspath(__file__)))
+        label_pdf=transform(self.name, current_path, '/label.xml','/HTMLRoutingLabelRenderer_Local.xsl')
 
-        raise exceptions.Warning(str(response))
-        #if response.Estado != '1' and not response.NumeroEnvio:
-        #    raise exceptions.Warning(response.Mensaje)
-        #label_factory = self._mrw_etiqueta_envio_request(mrw_api,
-        #                                                 response.NumeroEnvio)
-        #label_response = client.service.EtiquetaEnvio(label_factory)
-        #
-        #label = {
-        #    'file': label_response.EtiquetaFile.decode('base64'),
-        #    'file_type': 'pdf',
-        #    'name': response.NumeroEnvio + '.pdf',
-        #}
-        return [True]
+        try:
+            defpath = os.environ.get('PATH', os.defpath).split(os.pathsep)
+            if hasattr(sys, 'frozen'):
+                defpath.append(os.getcwd())
+                if tools.config['root_path']:
+                    defpath.append(os.path.dirname(tools.config['root_path']))
+            webkit_path = tools.which('wkhtmltopdf', path=os.pathsep.join(defpath))
+        except IOError:
+            webkit_path = None
+        command = ""
+
+        fd, out_filename = tempfile.mkstemp(suffix=".pdf",
+                                            prefix="tnt.labels.")
+        file_to_del = [out_filename]
+        if webkit_path:
+            command = [webkit_path]
+            command.append('--quiet')
+            command.extend(['--encoding', 'utf-8'])
+
+            count = 0
+            with tempfile.NamedTemporaryFile(suffix="%d.html" %count,
+                                             delete=False) as html_file:
+                html_file.write(label_pdf)
+            file_to_del.append(html_file.name)
+            command.append(html_file.name)
+        command.append(out_filename)
+        status = False
+        try:
+            status = subprocess.call(command)
+            with open(out_filename, 'rb') as pdf_file:
+                pdf = pdf_file.read()
+            os.close(fd)
+        finally:
+            
+            for f_to_del in file_to_del:
+                try:
+                    os.unlink(f_to_del)
+                except (OSError, IOError), exc:
+                    _logger.error('cannot remove file %s: %s', f_to_del, exc)
+        label = {
+            'file': pdf,
+            'file_type': 'pdf',
+            'name': self.name + '.pdf',
+        }
+        return [label]
 
     @api.multi
     def generate_shipping_labels(self, package_ids=None):

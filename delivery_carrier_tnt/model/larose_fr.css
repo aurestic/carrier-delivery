@@ -1,0 +1,623 @@
+#boxFR {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-collapse: collapse;
+    border-left-style-ltr-source: physical;
+    border-left-style-rtl-source: physical;
+    border-left-style-value: solid;
+    border-left-width-ltr-source: physical;
+    border-left-width-rtl-source: physical;
+    border-left-width-value: 1px;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: solid;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    font-family: arial;
+    height: 485px;
+    left: 9px;
+    position: relative;
+    text-align: center;
+    top: 9px;
+    width: 330px;
+}
+#logoFR {
+    background-color: #FFFFFF;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: none;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    height: 60px;
+    left: 1px;
+    padding-top: 10px;
+    position: absolute;
+    text-align: center;
+    top: 2px;
+    width: 112px;
+}
+#logoFR img {
+    height: 35px;
+    text-align: center;
+}
+#contactDetailsFR {
+    background-color: #FFFFFF;
+    font-weight: normal;
+    height: 40px;
+    left: 114px;
+    position: absolute;
+    text-align: left;
+    top: 1px;
+    width: 214px;
+}
+#contactDetailsTableFR tr td {
+    font-size: 10px;
+    line-height: 75%;
+}
+#legalCommentsFR {
+    border-bottom-color: black;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-top-color: black;
+    font-size: 7px;
+    font-weight: normal;
+    height: 10px;
+    left: 114px;
+    position: absolute;
+    text-align: justify;
+    top: 40px;
+    width: 214px;
+}
+#conNumberFR {
+    background-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
+    border-bottom-style: none;
+    border-bottom-width: 1px;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: none;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-color: black;
+    border-top-style: none;
+    border-top-width: 1px;
+    height: 31px;
+    left: 1px;
+    line-height: 60%;
+    padding-left: 3px;
+    position: absolute;
+    text-align: left;
+    top: 53px;
+    width: 162px;
+}
+#conNumberDetailFR {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 100%;
+}
+#serviceFR {
+    background-color: #000000;
+    border-bottom-color: black;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-top-color: black;
+    border-top-style: solid;
+    border-top-width: 1px;
+    color: #FFFFFF;
+    height: 24px;
+    left: 167px;
+    line-height: 70%;
+    position: absolute;
+    text-align: left;
+    top: 51px;
+    width: 163px;
+}
+#serviceDetailFR {
+    font-weight: bold;
+    line-height: 100%;
+    padding-left: 3px;
+}
+#optionFR {
+    background-color: #000000;
+    border-bottom-color: black;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-top-color: black;
+    color: #FFFFFF;
+    height: 17px;
+    left: 167px;
+    line-height: 90%;
+    position: absolute;
+    text-align: left;
+    top: 78px;
+    width: 163px;
+}
+#optionDetailFR {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 100%;
+    padding-left: 3px;
+}
+#pieceFR {
+    background-color: #FFFFFF;
+    border-bottom-color: black;
+    border-bottom-style: none;
+    border-bottom-width: 1px;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-top-color: black;
+    height: 16px;
+    left: 1px;
+    line-height: 75%;
+    padding-left: 3px;
+    position: absolute;
+    text-align: left;
+    top: 79px;
+    width: 83px;
+}
+#pieceDetailFR {
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 100%;
+}
+#weightFR {
+    background-color: #FFFFFF;
+    border-bottom-color: black;
+    border-bottom-style: none;
+    border-bottom-width: 1px;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: none;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-color: black;
+    height: 16px;
+    left: 68px;
+    line-height: 75%;
+    position: absolute;
+    text-align: right;
+    top: 79px;
+    width: 83px;
+}
+#weightDetailFR {
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 75%;
+}
+#weightDetailHighlightedFR {
+    background-color: black;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 75%;
+}
+#customerReferenceBarcodeFR {
+    background-color: #FFFFFF;
+    border-bottom-color: black;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: none;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-color: black;
+    height: 15px;
+    left: 60px;
+    position: absolute;
+    text-align: left;
+    top: 99px;
+    width: 230px;
+}
+#customerReferenceFR {
+    background-color: #FFFFFF;
+    border-bottom-color: black;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: none;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-color: black;
+    height: 15px;
+    left: 1px;
+    line-height: 70%;
+    padding-left: 3px;
+    position: absolute;
+    text-align: left;
+    top: 115px;
+    width: 162px;
+}
+#customerReferenceHeaderFR {
+    font-size: 10px;
+}
+#customerReferenceDetailFR {
+    font-size: 10px;
+    padding-left: 3px;
+}
+#accountNumberFR {
+    background-color: #FFFFFF;
+    border-bottom-style: none;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: none;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    height: 15px;
+    left: 1px;
+    line-height: 70%;
+    padding-left: 3px;
+    position: absolute;
+    text-align: left;
+    top: 129px;
+    width: 162px;
+}
+#accountNumberHeaderFR {
+    font-size: 10px;
+}
+#accountNumberDetailFR {
+    font-size: 10px;
+    padding-left: 3px;
+}
+#deliveryDepotFR {
+    background-color: #FFFFFF;
+    font-size: 48px;
+    left: 198px;
+    position: absolute;
+    text-align: left;
+    top: 135px;
+}
+#originAddressLabelFR {
+    background-color: #FFFFFF;
+    border-bottom-color: black;
+    border-bottom-style: none;
+    border-bottom-width: 1px;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: none;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-color: black;
+    border-top-style: none;
+    border-top-width: 1px;
+    font-size: 9px;
+    left: 1px;
+    line-height: 90%;
+    padding-left: 3px;
+    position: absolute;
+    text-align: left;
+    top: 147px;
+}
+#originAddressFR {
+    background-color: #FFFFFF;
+    border-bottom-color: black;
+    border-bottom-style: none;
+    border-bottom-width: 1px;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: none;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-color: black;
+    border-top-style: none;
+    border-top-width: 1px;
+    height: 55px;
+    left: 30px;
+    line-height: 70%;
+    padding-left: 3px;
+    position: absolute;
+    text-align: left;
+    top: 145px;
+    width: 162px;
+}
+#originAddressHeaderFR {
+    font-size: 8px;
+}
+#originAddressDetailFR {
+    font-size: 8px;
+}
+#deliveryAddressLabelFR {
+    background-color: #FFFFFF;
+    border-bottom-color: black;
+    border-bottom-style: none;
+    border-bottom-width: 1px;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: none;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-color: black;
+    font-size: 9px;
+    left: 1px;
+    line-height: 90%;
+    padding-left: 3px;
+    position: absolute;
+    text-align: left;
+    top: 204px;
+}
+#deliveryAddressFR {
+    background-color: #FFFFFF;
+    border-bottom-color: black;
+    border-bottom-style: none;
+    border-bottom-width: 1px;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: none;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-color: black;
+    height: 105px;
+    left: 30px;
+    line-height: 100%;
+    padding-left: 3px;
+    position: absolute;
+    text-align: left;
+    top: 199px;
+    width: 290px;
+}
+#deliveryAddressHeaderFR {
+    font-size: 9px;
+}
+#deliveryAddressDetailFR {
+    font-size: 15px;
+}
+#specialInstructionsFR {
+    background-color: #FFFFFF;
+    border-bottom-color: black;
+    border-bottom-style: none;
+    border-bottom-width: 1px;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: none;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-color: black;
+    font-size: 10px;
+    height: 10px;
+    left: 1px;
+    line-height: 100%;
+    padding-left: 3px;
+    position: absolute;
+    text-align: left;
+    top: 277px;
+    width: 325px;
+}
+#contactNameFR {
+    background-color: #FFFFFF;
+    border-bottom-style: none;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: none;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    font-size: 10px;
+    height: 18px;
+    left: 1px;
+    padding-left: 3px;
+    position: absolute;
+    text-align: left;
+    top: 289px;
+    width: 162px;
+}
+#contactNameHeaderFR {
+    font-size: 10px;
+}
+#contactNameDetailFR {
+    font-size: 10px;
+    padding-left: 3px;
+}
+#contactPhoneFR {
+    background-color: #FFFFFF;
+    border-bottom-style: none;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: none;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    font-size: 10px;
+    height: 18px;
+    left: 1px;
+    padding-left: 3px;
+    position: absolute;
+    text-align: left;
+    top: 301px;
+    width: 162px;
+}
+#contactPhoneHeaderFR {
+    font-size: 10px;
+}
+#contactPhoneDetailFR {
+    font-size: 10px;
+    padding-left: 3px;
+}
+#postcodeHeaderFR {
+    border-bottom-color: black;
+    border-bottom-style: none;
+    border-bottom-width: 1px;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-top-color: black;
+    font-size: 9px;
+    left: 1px;
+    padding-left: 3px;
+    position: absolute;
+    text-align: left;
+    top: 319px;
+    width: 65px;
+}
+#postcodeFR {
+    background-color: black;
+    border-bottom-color: black;
+    border-bottom-style: none;
+    border-bottom-width: 1px;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: solid;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-color: black;
+    height: 29px;
+    left: 68px;
+    position: absolute;
+    text-align: left;
+    top: 315px;
+    width: 96px;
+}
+#postcodeDetailFR {
+    background-color: black;
+    color: white;
+    font-size: 23px;
+    font-weight: bold;
+    left: 3px;
+    position: relative;
+}
+#clustercodeDetailFR {
+    background-color: black;
+    color: white;
+    font-size: 23px;
+    font-weight: bold;
+    left: 7px;
+    position: relative;
+    top: 0;
+}
+#pickupDateFR {
+    left: 170px;
+    position: absolute;
+    text-align: left;
+    top: 307px;
+    width: 157px;
+}
+#pickupDateHeaderFR {
+    font-size: 9px;
+}
+#pickupDateDetailFR {
+    font-size: 9px;
+}
+#cashAmountFR {
+    font-size: 16px;
+    left: 170px;
+    position: absolute;
+    text-align: left;
+    top: 325px;
+    width: 157px;
+}
+#barcodeFR {
+    left: 1px;
+    position: absolute;
+    top: 348px;
+    width: 327px;
+}
+#barcodeFR img {
+    height: 105px;
+    padding-top: 10px;
+    width: 326px;
+}
+#barcodeLabelFR {
+    font-size: 9px;
+    left: 1px;
+    position: absolute;
+    top: 473px;
+    width: 327px;
+}

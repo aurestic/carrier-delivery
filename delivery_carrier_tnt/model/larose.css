@@ -1,0 +1,634 @@
+#box {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-collapse: collapse;
+    border-left-style-ltr-source: physical;
+    border-left-style-rtl-source: physical;
+    border-left-style-value: solid;
+    border-left-width-ltr-source: physical;
+    border-left-width-rtl-source: physical;
+    border-left-width-value: 1px;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: solid;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    font-family: arial;
+    height: 485px;
+    left: 9px;
+    position: relative;
+    text-align: center;
+    top: 9px;
+    width: 330px;
+}
+#logo {
+    background-color: #FFFFFF;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: solid;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    height: 61px;
+    left: 1px;
+    position: absolute;
+    text-align: center;
+    top: 1px;
+    width: 112px;
+}
+#logo img {
+    height: 56px;
+    text-align: center;
+}
+#marketAndTransportType {
+    background-color: #FFFFFF;
+    font-size: 18px;
+    height: 28px;
+    left: 116px;
+    position: absolute;
+    text-align: left;
+    top: 1px;
+    width: 138px;
+}
+#hazardous {
+    font-size: 16px;
+    font-weight: bold;
+    left: 116px;
+    position: absolute;
+    text-align: left;
+    top: 22px;
+    width: 138px;
+}
+#xray {
+    font-size: 16px;
+    font-weight: bold;
+    left: 116px;
+    position: absolute;
+    text-align: left;
+    top: 40px;
+    width: 138px;
+}
+#freeCirculationIndicator {
+    border-bottom-color: black;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-left-style-ltr-source: physical;
+    border-left-style-rtl-source: physical;
+    border-left-style-value: solid;
+    border-left-width-ltr-source: physical;
+    border-left-width-rtl-source: physical;
+    border-left-width-value: 1px;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: solid;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-color: black;
+    font-size: 45px;
+    font-weight: bold;
+    height: 61px;
+    left: 254px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 39px;
+}
+#sortSplitIndicator {
+    border-bottom-color: black;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-top-color: black;
+    font-size: 45px;
+    font-weight: bold;
+    height: 60px;
+    left: 294px;
+    position: absolute;
+    text-align: center;
+    top: 1px;
+    width: 39px;
+}
+#conNumber {
+    background-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: solid;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-color: black;
+    border-top-style: solid;
+    border-top-width: 1px;
+    height: 31px;
+    left: 1px;
+    line-height: 60%;
+    padding-left: 3px;
+    position: absolute;
+    text-align: left;
+    top: 61px;
+    width: 162px;
+}
+#conNumberHeader {
+    font-size: 10px;
+}
+#conNumberDetail {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 100%;
+}
+#service {
+    background-color: #000000;
+    border-bottom-color: black;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-top-color: black;
+    border-top-style: solid;
+    border-top-width: 1px;
+    color: #FFFFFF;
+    height: 32px;
+    left: 167px;
+    line-height: 70%;
+    position: absolute;
+    text-align: left;
+    top: 61px;
+    width: 163px;
+}
+#serviceHeader {
+    font-size: 10px;
+}
+#serviceDetail {
+    font-weight: bold;
+    line-height: 100%;
+}
+#option {
+    background-color: #000000;
+    border-bottom-color: black;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-top-color: black;
+    color: #FFFFFF;
+    height: 31px;
+    left: 167px;
+    line-height: 75%;
+    position: absolute;
+    text-align: left;
+    top: 92px;
+    width: 163px;
+}
+#optionHeader {
+    font-size: 10px;
+}
+#optionDetail {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 100%;
+}
+#optionDetail {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 75%;
+}
+#piece {
+    background-color: #FFFFFF;
+    border-bottom-color: black;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-top-color: black;
+    height: 31px;
+    left: 1px;
+    line-height: 75%;
+    padding-left: 3px;
+    position: absolute;
+    text-align: left;
+    top: 93px;
+    width: 83px;
+}
+#pieceHeader {
+    font-size: 10px;
+}
+#pieceDetail {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 100%;
+}
+#weight {
+    background-color: #FFFFFF;
+    border-bottom-color: black;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: solid;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-color: black;
+    height: 31px;
+    left: 87px;
+    line-height: 75%;
+    position: absolute;
+    text-align: left;
+    top: 93px;
+    width: 79px;
+}
+#weightHeader {
+    font-size: 10px;
+}
+#weightDetail {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 100%;
+}
+#weightDetailHighlighted {
+    background-color: black;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 100%;
+}
+#customerReference {
+    background-color: #FFFFFF;
+    border-bottom-color: black;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: solid;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-color: black;
+    height: 24px;
+    left: 1px;
+    padding-left: 3px;
+    position: absolute;
+    text-align: left;
+    top: 125px;
+    width: 162px;
+}
+#customerReferenceHeader {
+    font-size: 9px;
+}
+#customerReferenceDetail {
+    font-size: 9px;
+    font-weight: bold;
+}
+#originDepot {
+    height: 32px;
+    left: 168px;
+    padding-left: 3px;
+    position: absolute;
+    text-align: left;
+    top: 125px;
+    width: 87px;
+}
+#originDepotHeader {
+    float: left;
+    font-size: 9px;
+}
+#originDepotDetail {
+    font-size: 24px;
+    font-weight: bold;
+    padding-left: 0;
+}
+#pickupDate {
+    height: 32px;
+    left: 260px;
+    line-height: 75%;
+    position: absolute;
+    text-align: left;
+    top: 124px;
+    width: 70px;
+}
+#pickupDateHeader {
+    font-size: 10px;
+}
+#pickupDateDetail {
+    font-size: 10px;
+}
+#accountNumber {
+    background-color: #FFFFFF;
+    border-bottom-style: none;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: solid;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    font-size: 10px;
+    height: 18px;
+    left: 1px;
+    padding-left: 3px;
+    position: absolute;
+    text-align: left;
+    top: 148px;
+    width: 162px;
+}
+#accountNumberHeader {
+    font-size: 10px;
+}
+#accountNumberDetail {
+    font-size: 10px;
+    padding-left: 3px;
+}
+#originAddress {
+    background-color: #FFFFFF;
+    border-bottom-color: black;
+    border-bottom-style: dashed;
+    border-bottom-width: 1px;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: solid;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-color: black;
+    border-top-style: solid;
+    border-top-width: 1px;
+    height: 70px;
+    left: 1px;
+    line-height: 70%;
+    padding-left: 3px;
+    position: absolute;
+    text-align: left;
+    top: 161px;
+    width: 162px;
+}
+#originAddressHeader {
+    font-size: 9px;
+}
+#originAddressDetail {
+    font-size: 9px;
+    padding-left: 10px;
+}
+#deliveryAddress {
+    background-color: #FFFFFF;
+    border-bottom-color: black;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: solid;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-color: black;
+    height: 70px;
+    left: 1px;
+    line-height: 70%;
+    padding-left: 3px;
+    position: absolute;
+    text-align: left;
+    top: 233px;
+    width: 162px;
+}
+#deliveryAddressHeader {
+    font-size: 9px;
+}
+#deliveryAddressDetail {
+    font-size: 9px;
+    padding-left: 10px;
+}
+#routing {
+    background-color: #FFFFFF;
+    border-bottom-color: black;
+    border-bottom-style: dashed;
+    border-bottom-width: 1px;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-top-color: black;
+    border-top-style: dashed;
+    border-top-width: 1px;
+    height: 122px;
+    left: 168px;
+    line-height: 70%;
+    padding-left: 3px;
+    position: absolute;
+    text-align: left;
+    top: 154px;
+    width: 159px;
+}
+#routingHeader {
+    float: left;
+    font-size: 10px;
+}
+#routingDetail {
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 90%;
+    padding-left: 40px;
+}
+#sort {
+    background-color: #FFFFFF;
+    border-bottom-color: black;
+    border-bottom-style: dashed;
+    border-bottom-width: 1px;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-top-color: black;
+    height: 32px;
+    left: 167px;
+    padding-left: 3px;
+    position: absolute;
+    text-align: left;
+    top: 278px;
+    width: 159px;
+}
+#sortHeader {
+    float: left;
+    font-size: 10px;
+}
+#sortDetail {
+    font-size: 30px;
+    font-weight: bold;
+    padding-left: 8px;
+}
+#postcodeHeader {
+    border-bottom-color: black;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-top-color: black;
+    font-size: 9px;
+    height: 34px;
+    left: 0;
+    padding-left: 4px;
+    position: absolute;
+    text-align: left;
+    top: 312px;
+    width: 60px;
+}
+#postcode {
+    background-color: black;
+    border-bottom-color: black;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: solid;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-color: black;
+    height: 42px;
+    left: 62px;
+    position: absolute;
+    text-align: left;
+    top: 304px;
+    width: 104px;
+}
+#postcodeDetail {
+    background-color: black;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    left: 3px;
+    position: relative;
+    top: 6px;
+}
+#clustercodeDetail {
+    background-color: black;
+    color: white;
+    font-size: 34px;
+    font-weight: bold;
+    left: 7px;
+    position: relative;
+    top: 1px;
+}
+#destinationDepot {
+}
+#destinationDepotHeader {
+    border-bottom-color: black;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-top-color: black;
+    font-size: 10px;
+    height: 31px;
+    left: 167px;
+    padding-left: 3px;
+    position: absolute;
+    text-align: left;
+    top: 314px;
+    width: 42px;
+}
+#destinationDepotDetail {
+    border-bottom-color: black;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: black;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: black;
+    border-top-color: black;
+    font-size: 32px;
+    font-weight: bold;
+    height: 36px;
+    left: 203px;
+    position: absolute;
+    text-align: left;
+    top: 309px;
+    width: 128px;
+}
+#barcode {
+    left: 1px;
+    position: absolute;
+    top: 348px;
+    width: 327px;
+}
+#barcode img {
+    height: 105px;
+    padding-top: 10px;
+    width: 326px;
+}
+#barcodeLabel {
+    font-size: 9px;
+    left: 1px;
+    position: absolute;
+    top: 473px;
+    width: 327px;
+}
