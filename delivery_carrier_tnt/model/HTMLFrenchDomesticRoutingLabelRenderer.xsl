@@ -232,7 +232,7 @@
      <xsl:value-of select="barcode" />
   </div>
 </div> 
-<br style="page-break-before:always"/>
+<p/>
 
 </xsl:template>
 

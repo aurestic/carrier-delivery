@@ -199,7 +199,8 @@ class StockPicking(models.Model):
             command = [webkit_path]
             command.append('--quiet')
             command.extend(['--encoding', 'utf-8'])
-
+            command.extend(['--page-height', '157'])
+            command.extend(['--page-width', '120'])
             count = 0
             with tempfile.NamedTemporaryFile(suffix="%d.html" %count,
                                              delete=False) as html_file:
