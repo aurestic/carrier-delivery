@@ -32,8 +32,12 @@
         'security/ir.model.access.csv',
         'view/ups_config_view.xml',
         'view/delivery_view.xml',
+        'view/stock_view.xml'
     ],
     'installable': True,
     'auto_install': False,
-    'license': 'AGPL-3'
+    'license': 'AGPL-3',
+    'external_dependencies': {
+        'python': ['ClassicUPS'],
+    }
 }

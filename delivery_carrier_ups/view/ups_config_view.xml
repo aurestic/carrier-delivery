@@ -36,6 +36,17 @@
                                 <field name="is_test" class="oe_inline"/>
                             </group>
                         </group>
+                        <group>
+                            <group>
+                                <separator string="UoM Configuration" colspan="2"/>
+                                <field name="weight_uom"/>
+                                <field name="dimension_uom"/>
+                            </group>
+                            <group>
+                                <separator string="Label Configuration" colspan="2"/>
+                                <field name="label_file_format"/>
+                            </group>
+                        </group>
                     </sheet>
                 </form>
             </field>

@@ -18,11 +18,37 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, fields
+from openerp import models, fields, api
+
+UPS_LABEL_FORMAT = [
+    ('EPL', 'EPL'),
+    ('ZPL', 'ZPL'),
+    ('GIF', 'GIF'),
+    ('STARPL', 'STARPL'),
+    ('SPL', 'SPL')
+]
 
 
 class UPSConfig(models.Model):
     _name = 'ups.config'
+
+    @api.model
+    def _ups_weight_uom(self):
+        return [
+            ('KGS', 'KGS'),
+            ('LBS', 'LBS')
+        ]
+
+    @api.model
+    def _ups_dimension_uom(self):
+        return [
+            ('CM', 'CM'),
+            ('IN', 'IN')
+        ]
+
+    @api.model
+    def _ups_label_file_format(self):
+        return UPS_LABEL_FORMAT
 
     name = fields.Char('UPS Config Name', required=True)
     is_test = fields.Boolean('Is a test?')
@@ -30,3 +56,11 @@ class UPSConfig(models.Model):
     password = fields.Char('UPS Password', required=True)
     access_license = fields.Char('UPS Access license', required=True)
     shipper_number = fields.Char('UPS Shipper number', required=True)
+
+    weight_uom = fields.Selection('_ups_weight_uom', required=True,
+                                  default="KGS")
+    dimension_uom = fields.Selection('_ups_dimension_uom', required=True,
+                                     default='CM')
+
+    label_file_format = fields.Selection('_ups_label_file_format',
+                                         required=True, default='EPL')
