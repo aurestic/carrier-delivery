@@ -1,0 +1,161 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* delivery_carrier_tnt
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-27 12:08+0000\n"
+"PO-Revision-Date: 2015-10-27 12:08+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: delivery_carrier_tnt
+#: field:tnt.config,account_country:0
+msgid "Account country"
+msgstr "Pais de la cuenta TNT"
+
+#. module: delivery_carrier_tnt
+#: field:tnt.config,account_number:0
+msgid "Account number"
+msgstr "Número de cuenta TNT"
+
+#. module: delivery_carrier_tnt
+#: model:ir.model,name:delivery_carrier_tnt.model_delivery_carrier
+msgid "Carrier"
+msgstr "Transportista"
+
+#. module: delivery_carrier_tnt
+#: field:tnt.config,time:0
+msgid "Collection Time"
+msgstr "Hora aproximada de recogida"
+
+#. module: delivery_carrier_tnt
+#: field:tnt.config,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: delivery_carrier_tnt
+#: field:tnt.config,create_date:0
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: delivery_carrier_tnt
+#: code:addons/delivery_carrier_tnt/model/stock.py:161
+#, python-format
+msgid "Error building XML Request"
+msgstr "Error construyendo XML Request"
+
+#. module: delivery_carrier_tnt
+#: code:addons/delivery_carrier_tnt/model/stock.py:184
+#, python-format
+msgid "Error sending XML Request"
+msgstr "Error enviando XML Request"
+
+#. module: delivery_carrier_tnt
+#: field:tnt.config,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: delivery_carrier_tnt
+#: code:addons/delivery_carrier_tnt/model/stock.py:81
+#, python-format
+msgid "Invalid consigment code for TNT Range codes, configure sequence Delivery TNT next number"
+msgstr "Código invalido para el rango de códigos establecidos por TNT, configure correctamente el siguiente número de la secuencia Delivery TNT"
+
+#. module: delivery_carrier_tnt
+#: field:tnt.config,is_test:0
+msgid "Is a test?"
+msgstr "Es una prueba?"
+
+#. module: delivery_carrier_tnt
+#: field:tnt.config,write_uid:0
+msgid "Last Updated by"
+msgstr "Última modificación por"
+
+#. module: delivery_carrier_tnt
+#: field:tnt.config,write_date:0
+msgid "Last Updated on"
+msgstr "Última modificación el"
+
+#. module: delivery_carrier_tnt
+#: field:tnt.config,max_range_code:0
+msgid "Max Code"
+msgstr "Máximo código del rango"
+
+#. module: delivery_carrier_tnt
+#: field:tnt.config,min_range_code:0
+msgid "Min Code"
+msgstr "Mínimo código del rango"
+
+#. module: delivery_carrier_tnt
+#: field:tnt.config,name:0
+msgid "Name"
+msgstr "Nombre"
+
+#. module: delivery_carrier_tnt
+#: code:addons/delivery_carrier_tnt/model/stock.py:191
+#, python-format
+msgid "No TNT Config defined in carrier"
+msgstr "No TNT config definido en el transportista"
+
+#. module: delivery_carrier_tnt
+#: field:tnt.config,height_package:0
+msgid "Package height"
+msgstr "Altura del paquete standard"
+
+#. module: delivery_carrier_tnt
+#: field:tnt.config,length_package:0
+msgid "Package length"
+msgstr "Longitud del paquete standard"
+
+#. module: delivery_carrier_tnt
+#: field:tnt.config,width_package:0
+msgid "Package width"
+msgstr "Anchura del paquete standard"
+
+#. module: delivery_carrier_tnt
+#: field:tnt.config,password:0
+msgid "Password"
+msgstr "Contraseña TNT"
+
+#. module: delivery_carrier_tnt
+#: model:ir.model,name:delivery_carrier_tnt.model_stock_picking
+msgid "Picking List"
+msgstr "Albarán"
+
+#. module: delivery_carrier_tnt
+#: code:addons/delivery_carrier_tnt/model/stock.py:194
+#, python-format
+msgid "Please define an address in the %s warehouse"
+msgstr "Por favor estrablezca una dirección en el %s almacén"
+
+#. module: delivery_carrier_tnt
+#: model:ir.actions.act_window,name:delivery_carrier_tnt.tnt_config_action
+#: model:ir.ui.menu,name:delivery_carrier_tnt.tnt_config_menu
+msgid "TNT"
+msgstr "TNT"
+
+#. module: delivery_carrier_tnt
+#: field:delivery.carrier,tnt_config_id:0
+#: view:tnt.config:delivery_carrier_tnt.tnt_config_form_view
+#: view:tnt.config:delivery_carrier_tnt.tnt_config_tree_view
+msgid "TNT Config"
+msgstr "TNT Config"
+
+#. module: delivery_carrier_tnt
+#: code:addons/delivery_carrier_tnt/wizard/tnt_manifest_wizard.py:73
+#, python-format
+msgid "TNT Manifest"
+msgstr "TNT Manifiesto"
+
+#. module: delivery_carrier_tnt
+#: field:tnt.config,username:0
+msgid "Username"
+msgstr "Usuario TNT"
+
