@@ -34,7 +34,7 @@ import logging
 _logger = logging.getLogger(__name__)
 
 def transform(name, path, xmlname, xslname):
-    dom = etree.parse(path+xmlname)
+    dom = etree.parse(xmlname)
     xslt = etree.parse(path+xslname)
     transform = etree.XSLT(xslt)
     newdom = transform(dom, css_dir="'file://"+path+"'")
@@ -74,98 +74,114 @@ class StockPicking(models.Model):
     @api.multi
     def _tnt_transm_envio_request(self):
         self.ensure_one()
-
+        message=''
+        res=''
         consigment_code = self.env['ir.sequence'].get('tnt.consignment.sequence')
-        if consigment_code>self.carrier_id.tnt_config_id.max_range_code and consigment_code<self.carrier_id.tnt_config_id.min_range_code:
-            raise exceptions.Warning(_('Exceeded TNT Range codes'))
-        
-        requestlabel = tnt.labelRequest()
-        requestlabel.consignment.append(tnt.labelConsignmentsType())
-        requestlabel.consignment[0].key = 'con1'
-        requestlabel.consignment[0].consignmentIdentity = tnt.consignmentIdentityType()
+        if consigment_code>self.carrier_id.tnt_config_id.max_range_code or consigment_code<self.carrier_id.tnt_config_id.min_range_code:
+            raise exceptions.Warning(_('Invalid consigment code for TNT Range codes, configure sequence Delivery TNT next number'))
+        try:
+            requestlabel = tnt.labelRequest()
+            requestlabel.consignment.append(tnt.labelConsignmentsType())
+            requestlabel.consignment[0].key = 'con1'
+            requestlabel.consignment[0].consignmentIdentity = tnt.consignmentIdentityType()
 
-        requestlabel.consignment[0].consignmentIdentity.consignmentNumber =  consigment_code + getTNTDC(consigment_code)
-        requestlabel.consignment[0].consignmentIdentity.customerReference = self.name
-        requestlabel.consignment[0].collectionDateTime = get_collection_date(self.carrier_id.tnt_config_id.time)
-
-
-        requestlabel.consignment[0].sender = tnt.nameAndAddressRequestType()
-        warehouse_address = self.picking_type_id.warehouse_id.partner_id
-        requestlabel.consignment[0].sender.name = warehouse_address.name
-        requestlabel.consignment[0].sender.addressLine1 = warehouse_address.street
-        if warehouse_address.street2:
-            requestlabel.consignment[0].sender.addressLine2 = warehouse_address.street2
-        requestlabel.consignment[0].sender.town = warehouse_address.city
-        requestlabel.consignment[0].sender.exactMatch = 'N'
-        requestlabel.consignment[0].sender.province = warehouse_address.state_id.name or ''
-        requestlabel.consignment[0].sender.postcode = warehouse_address.zip.zfill(5)
-        requestlabel.consignment[0].sender.country = warehouse_address.country_id.code or ''
+            requestlabel.consignment[0].consignmentIdentity.consignmentNumber =  consigment_code + getTNTDC(consigment_code)
+            requestlabel.consignment[0].consignmentIdentity.customerReference = self.name
+            requestlabel.consignment[0].collectionDateTime = get_collection_date(self.carrier_id.tnt_config_id.time)
 
 
-        requestlabel.consignment[0].delivery = tnt.nameAndAddressRequestType()
-        requestlabel.consignment[0].delivery.name = self.partner_id.name or ''
-        requestlabel.consignment[0].delivery.addressLine1 = self.partner_id.street
-        if self.partner_id.street2:
-            requestlabel.consignment[0].delivery.addressLine2 = self.partner_id.street2
-        requestlabel.consignment[0].delivery.town = self.partner_id.city
-        requestlabel.consignment[0].sender.exactMatch = 'N'
-        requestlabel.consignment[0].delivery.province = self.partner_id.state_id.name or ''
-        requestlabel.consignment[0].delivery.postcode = self.partner_id.zip.zfill(5)
-        requestlabel.consignment[0].delivery.country = self.partner_id.country_id.code or ''
-
-        requestlabel.consignment[0].contact = tnt.contactType()
-        requestlabel.consignment[0].contact.name = (self.partner_id and self.partner_id.parent_id and self.partner_id.parent_id.name) or (self.partner_id and self.partner_id.name) or ''
-        requestlabel.consignment[0].contact.telephoneNumber = self.partner_id.phone or ''
-        requestlabel.consignment[0].contact.emailAddress = self.partner_id.email or ''
-
-        requestlabel.consignment[0].product = tnt.productType()
-        requestlabel.consignment[0].product.lineOfBusiness = '1'
-        requestlabel.consignment[0].product.groupId = '0'
-        requestlabel.consignment[0].product.subGroupId = '0'
-        requestlabel.consignment[0].product.id = 'EX'
-        requestlabel.consignment[0].product.type = 'N'
-
-        requestlabel.consignment[0].account = tnt.accountType()
-        requestlabel.consignment[0].account.accountNumber = self.carrier_id.tnt_config_id.account_number
-        requestlabel.consignment[0].account.accountCountry = self.carrier_id.tnt_config_id.account_country
-
-        requestlabel.consignment[0].totalNumberOfPieces = self.number_of_packages or 1
-
-        requestlabel.consignment[0].pieceLine.append(tnt.pieceLineType())
-        requestlabel.consignment[0].pieceLine[0].identifier = 1
-        desc = ','.join([move.name[0:5] for move in self.move_lines])
-        requestlabel.consignment[0].pieceLine[0].goodsDescription = desc[0:30]
-        requestlabel.consignment[0].pieceLine[0].pieceMeasurements = tnt.measurementsType()
-        requestlabel.consignment[0].pieceLine[0].pieceMeasurements.length = self.carrier_id.tnt_config_id.length_package
-        requestlabel.consignment[0].pieceLine[0].pieceMeasurements.width = self.carrier_id.tnt_config_id.width_package
-        requestlabel.consignment[0].pieceLine[0].pieceMeasurements.height = self.carrier_id.tnt_config_id.height_package
-        requestlabel.consignment[0].pieceLine[0].pieceMeasurements.weight = self.weight or 1
-
-        requestlabel.consignment[0].pieceLine[0].pieces.append(tnt.pieceType())
-        requestlabel.consignment[0].pieceLine[0].pieces[0].sequenceNumbers = str(range(1,(self.number_of_packages or 1)+1)).strip('[]').replace(' ','')
-        requestlabel.consignment[0].pieceLine[0].pieces[0].pieceReference = 'COMPONENT'
-        message = requestlabel.toxml("utf-8")
+            requestlabel.consignment[0].sender = tnt.nameAndAddressRequestType()
+            warehouse_address = self.picking_type_id.warehouse_id.partner_id
+            requestlabel.consignment[0].sender.name = warehouse_address.name
+            requestlabel.consignment[0].sender.addressLine1 = warehouse_address.street
+            if warehouse_address.street2:
+                requestlabel.consignment[0].sender.addressLine2 = warehouse_address.street2
+            if warehouse_address.city:
+                requestlabel.consignment[0].sender.town = warehouse_address.city
+                requestlabel.consignment[0].sender.exactMatch = 'N'
+            if warehouse_address.state_id:
+                requestlabel.consignment[0].sender.province = warehouse_address.state_id.name or ''
+            if warehouse_address.zip:
+                requestlabel.consignment[0].sender.postcode = warehouse_address.zip.zfill(5)
+            requestlabel.consignment[0].sender.country = warehouse_address.country_id.code or ''
 
 
-        host = "express.tnt.com"
-        url = "/expresslabel/documentation/getlabel"
-        username = self.carrier_id.tnt_config_id.username
-        password = self.carrier_id.tnt_config_id.password
+            requestlabel.consignment[0].delivery = tnt.nameAndAddressRequestType()
+            requestlabel.consignment[0].delivery.name = (self.partner_id and self.partner_id.parent_id and self.partner_id.parent_id.name) or (self.partner_id and self.partner_id.name) or ''
+            requestlabel.consignment[0].delivery.addressLine1 = self.partner_id.street
+            if self.partner_id.street2:
+                requestlabel.consignment[0].delivery.addressLine2 = self.partner_id.street2
+            if self.partner_id.city:
+                requestlabel.consignment[0].delivery.town = self.partner_id.city
+                requestlabel.consignment[0].delivery.exactMatch = 'N'
+            if self.partner_id.state_id:
+                requestlabel.consignment[0].delivery.province = self.partner_id.state_id.name
+            if self.partner_id.zip:
+                requestlabel.consignment[0].delivery.postcode = self.partner_id.zip.zfill(5)
+            requestlabel.consignment[0].delivery.country = self.partner_id.country_id.code or ''
 
+            requestlabel.consignment[0].contact = tnt.contactType()
+            requestlabel.consignment[0].contact.name = (self.partner_id and self.partner_id.parent_id and self.partner_id.parent_id.name) or (self.partner_id and self.partner_id.name) or ''
+            if self.partner_id.phone:
+                requestlabel.consignment[0].contact.telephoneNumber = self.partner_id.phone
+            if self.partner_id.email:
+                requestlabel.consignment[0].contact.emailAddress = self.partner_id.email
 
-        auth = base64.encodestring('%s:%s' % (username, password)).replace('\n', '')
-        webservice = httplib.HTTPS(host)
-        webservice.putrequest("POST", url)
-        webservice.putheader("Host", host)
-        webservice.putheader("User-Agent", "Python http auth")
-        webservice.putheader("Content-type", "text/xml")
-        webservice.putheader("Content-length", "%d" % len(message))
-        webservice.putheader("Authorization", "Basic %s" % auth)
-        webservice.endheaders()
-        webservice.send(message)
-        statuscode, statusmessage, header = webservice.getreply()
-        res = webservice.getfile().read()
+            requestlabel.consignment[0].product = tnt.productType()
+            requestlabel.consignment[0].product.lineOfBusiness = '1'
+            requestlabel.consignment[0].product.groupId = '0'
+            requestlabel.consignment[0].product.subGroupId = '0'
+            requestlabel.consignment[0].product.id = 'EX'
+            requestlabel.consignment[0].product.type = 'N'
 
+            requestlabel.consignment[0].account = tnt.accountType()
+            if self.carrier_id.tnt_config_id.is_test:
+                requestlabel.consignment[0].account.accountNumber = '1234567'
+            else:
+                requestlabel.consignment[0].account.accountNumber = self.carrier_id.tnt_config_id.account_number
+            requestlabel.consignment[0].account.accountCountry = self.carrier_id.tnt_config_id.account_country
+
+            requestlabel.consignment[0].totalNumberOfPieces = self.number_of_packages or 1
+
+            requestlabel.consignment[0].pieceLine.append(tnt.pieceLineType())
+            requestlabel.consignment[0].pieceLine[0].identifier = 1
+            desc = ','.join([move.name[0:5] for move in self.move_lines])
+            requestlabel.consignment[0].pieceLine[0].goodsDescription = desc[0:30]
+            requestlabel.consignment[0].pieceLine[0].pieceMeasurements = tnt.measurementsType()
+            requestlabel.consignment[0].pieceLine[0].pieceMeasurements.length = self.carrier_id.tnt_config_id.length_package
+            requestlabel.consignment[0].pieceLine[0].pieceMeasurements.width = self.carrier_id.tnt_config_id.width_package
+            requestlabel.consignment[0].pieceLine[0].pieceMeasurements.height = self.carrier_id.tnt_config_id.height_package
+            requestlabel.consignment[0].pieceLine[0].pieceMeasurements.weight = self.weight or 1
+
+            requestlabel.consignment[0].pieceLine[0].pieces.append(tnt.pieceType())
+            requestlabel.consignment[0].pieceLine[0].pieces[0].sequenceNumbers = str(range(1,(self.number_of_packages or 1)+1)).strip('[]').replace(' ','')
+            requestlabel.consignment[0].pieceLine[0].pieces[0].pieceReference = 'COMPONENT'
+            message = requestlabel.toxml("utf-8")
+        except:
+            raise exceptions.Warning(_('Error building XML Request'))
+
+        try:
+            host = "express.tnt.com"
+            url = "/expresslabel/documentation/getlabel"
+            username = self.carrier_id.tnt_config_id.username
+            password = self.carrier_id.tnt_config_id.password
+            if self.carrier_id.tnt_config_id.is_test:
+                username = username + "_Test"
+                password = password + "_Test"
+            auth = base64.encodestring('%s:%s' % (username, password)).replace('\n', '')
+            webservice = httplib.HTTPS(host)
+            webservice.putrequest("POST", url)
+            webservice.putheader("Host", host)
+            webservice.putheader("User-Agent", "Python http auth")
+            webservice.putheader("Content-type", "text/xml")
+            webservice.putheader("Content-length", "%d" % len(message))
+            webservice.putheader("Authorization", "Basic %s" % auth)
+            webservice.endheaders()
+            webservice.send(message)
+            statuscode, statusmessage, header = webservice.getreply()
+            res = webservice.getfile().read()
+        except:
+            raise exceptions.Warning(_('Error sending XML Request'))
         return res
 
     @api.multi
@@ -178,8 +194,16 @@ class StockPicking(models.Model):
                 _('Please define an address in the %s warehouse') % (
                     self.warehouse_id.name))
         response = self._tnt_transm_envio_request()
+        if "<consignmentLabelData>" not in response:
+            raise exceptions.Warning(("Error in xml communication: %s") % (response))
+        file_to_del = []
+        with tempfile.NamedTemporaryFile(suffix="response.xml",
+                                         delete=False) as xml_file:
+            xml_file.write(response)
+        xml_name = xml_file.name
+        file_to_del.append(xml_file.name)
         current_path = os.path.join(os.path.dirname(os.path.abspath(__file__)))
-        label_pdf=transform(self.name, current_path, '/label.xml','/HTMLRoutingLabelRenderer_Local.xsl')
+        label_pdf=transform(self.name, current_path, xml_name,'/HTMLRoutingLabelRenderer_Local.xsl')
 
         try:
             defpath = os.environ.get('PATH', os.defpath).split(os.pathsep)
@@ -194,7 +218,7 @@ class StockPicking(models.Model):
 
         fd, out_filename = tempfile.mkstemp(suffix=".pdf",
                                             prefix="tnt.labels.")
-        file_to_del = [out_filename]
+        file_to_del.append(out_filename)
         if webkit_path:
             command = [webkit_path]
             command.append('--quiet')

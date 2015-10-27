@@ -12,6 +12,7 @@
         <record id="seq_delivery_tnt" model="ir.sequence">
             <field name="name">Delivery TNT</field>
             <field name="code">tnt.consignment.sequence</field>
+            <field name="implementation">no_gap</field>
             <field name="padding">8</field>
             <field name="number_increment">1</field>
             <field name="company_id" eval="False"/>
