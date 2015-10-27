@@ -107,17 +107,17 @@ msgstr "No TNT config definido en el transportista"
 #. module: delivery_carrier_tnt
 #: field:tnt.config,height_package:0
 msgid "Package height"
-msgstr "Altura del paquete standard"
+msgstr "Altura del paquete standard (metros)"
 
 #. module: delivery_carrier_tnt
 #: field:tnt.config,length_package:0
 msgid "Package length"
-msgstr "Longitud del paquete standard"
+msgstr "Longitud del paquete standard (metros)"
 
 #. module: delivery_carrier_tnt
 #: field:tnt.config,width_package:0
 msgid "Package width"
-msgstr "Anchura del paquete standard"
+msgstr "Anchura del paquete standard (metros)"
 
 #. module: delivery_carrier_tnt
 #: field:tnt.config,password:0

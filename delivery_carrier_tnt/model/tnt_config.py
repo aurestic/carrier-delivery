@@ -24,7 +24,7 @@ class TntConfig(models.Model):
     _name = 'tnt.config'
 
     name = fields.Char('Name', required=True)
-    is_test = fields.Boolean('Is a test?')
+    is_test = fields.Boolean('Is a test?', default=True)
     username = fields.Char('Username', required=True)
     password = fields.Char('Password', required=True)
     time = fields.Float("Collection Time", required = True)
