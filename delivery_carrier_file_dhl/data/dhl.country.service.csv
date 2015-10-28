@@ -1,0 +1,37 @@
+id,country_id:id,service_name,service_code,service_number
+dhl_country_service_AT,base.at,ECONOMY SELECT,ESU,110
+dhl_country_service_BE,base.be,ECONOMY SELECT,ESU,110
+dhl_country_service_BG,base.bg,ECONOMY SELECT,ESU,110
+dhl_country_service_CH,base.ch,ECONOMY SELECT,ESI,112
+dhl_country_service_CZ,base.cz,ECONOMY SELECT,ESU,110
+dhl_country_service_DE,base.de,ECONOMY SELECT,ESU,110
+dhl_country_service_DK,base.dk,ECONOMY SELECT,ESU,110
+dhl_country_service_EE,base.ee,ECONOMY SELECT,ESU,110
+dhl_country_service_ES,base.es,DOM ECONOMY SELECT,DES,800
+dhl_country_service_FI,base.fi,ECONOMY SELECT,ESU,110
+dhl_country_service_FR,base.fr,ECONOMY SELECT,ESU,110
+dhl_country_service_GB,base.uk,ECONOMY SELECT,ESU,110
+dhl_country_service_GG,base.gg,ECONOMY SELECT,ESI,112
+dhl_country_service_GR,base.gr,ECONOMY SELECT,ESU,110
+dhl_country_service_HR,base.hr,ECONOMY SELECT,ESI,112
+dhl_country_service_HU,base.hu,ECONOMY SELECT,ESU,110
+dhl_country_service_IE,base.ie,ECONOMY SELECT,ESU,110
+dhl_country_service_IL,base.il,ECONOMY SELECT,ESI,112
+dhl_country_service_IT,base.it,ECONOMY SELECT,ESU,110
+dhl_country_service_JE,base.je,ECONOMY SELECT,ESI,112
+dhl_country_service_LI,base.li,ECONOMY SELECT,ESU,110
+dhl_country_service_LT,base.lt,ECONOMY SELECT,ESU,110
+dhl_country_service_LU,base.lu,ECONOMY SELECT,ESU,110
+dhl_country_service_LV,base.lv,ECONOMY SELECT,ESU,110
+dhl_country_service_NL,base.nl,ECONOMY SELECT,ESU,110
+dhl_country_service_NO,base.no,ECONOMY SELECT,ESI,112
+dhl_country_service_PL,base.pl,ECONOMY SELECT,ESU,110
+dhl_country_service_PT,base.pt,DOM ECONOMY SELECT,DES,800
+dhl_country_service_RO,base.ro,ECONOMY SELECT,ESU,110
+dhl_country_service_RS,base.rs,ECONOMY SELECT,ESU,110
+dhl_country_service_SE,base.se,ECONOMY SELECT,ESU,110
+dhl_country_service_SI,base.si,ECONOMY SELECT,ESU,110
+dhl_country_service_SM,base.sm,ECONOMY SELECT,ESI,112
+dhl_country_service_SK,base.sk,ECONOMY SELECT,ESU,110
+dhl_country_service_TR,base.tr,ECONOMY SELECT,ESI,112
+dhl_country_service_UA,base.ua,ECONOMY SELECT,ESU,110
