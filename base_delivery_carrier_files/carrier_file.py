@@ -86,7 +86,10 @@ class CarrierFile(models.Model):
 
         # must return a list of generated pickings ids to update
         files = file_generator.generate_files(pickings, self)
+        pickings = [picking for picking in picking_obj.browse(picking_ids)]
 
+        # must return a list of generated pickings ids to update
+        files = file_generator.generate_files(pickings, self)
         for f in files:
             filename, file_content, picking_ids = f
             # we pass the errors because the files can still be
