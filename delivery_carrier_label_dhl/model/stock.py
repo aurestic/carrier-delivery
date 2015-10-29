@@ -119,7 +119,7 @@ class StockPicking(models.Model):
             ))
         shipment = DHLShipment(shipper, recipient, packages,
                                reference_code=self.name,
-                               drop_off_type="REQUEST_COURIER")
+                               drop_off_type="REGULAR_PICKUP")
         shipment.label_type = dhl_config.label_type
         shipment.label_format = dhl_config.label_template
 
