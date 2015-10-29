@@ -17,65 +17,86 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm, fields
-from openerp.tools.translate import _
-import base64
+from openerp import models, fields, api, exceptions, _
+import logging
 import tempfile
+import base64
+from datetime import datetime
 
-class tnt_manifest_wizard(orm.TransientModel):
+_logger = logging.getLogger(__name__)
+
+class tnt_manifest_wizard(models.TransientModel):
     _name = 'tnt.manifest.wizard'
+    to_date = fields.Datetime('To Date', required=True)
+    file_out = fields.Binary('Manifest', readonly=True)
+    filename = fields.Char('File Name', readonly=True)
+    notes = fields.Text('Result', readonly=True)
+    state = fields.Selection(selection = [('init', 'Init'),('file', 'File'),('end', 'END')], string='State', readonly=True, default='init')
 
-    _columns = {
-        'from_date': fields.datetime('From Date', required=True),
-        'file': fields.binary('Manifest', readonly=True),
-        'filename': fields.char('File Name', readonly=True),
-        'state': fields.selection((
-            ('init', 'Init'),
-            ('file', 'File')
-        ), 'State', readonly=True)
-    }
+    @api.multi
+    def get_manifest_file(self):
+        notes = ''
+        picking_pool = self.env['stock.picking']
+        state = 'file'
+        result = False
+        is_test = False
+        manifest = ''
+        values = {}
+        for record in self:
+            picking_ids = picking_pool.search([('carrier_id.tnt_config_id','!=', False),('lines_manifest','!=', False), ('datetime_label','<',self.to_date), ('notified2carrier', '=',False)])
+            if picking_ids:
+                for picking in picking_ids:
+                    manifest = manifest + picking.lines_manifest + '\n'
+                    if (not is_test) and picking.carrier_id.tnt_config_id.is_test:
+                        is_test = True
 
-    _defaults = {
-        'state': 'init'
-    }
+                f = tempfile.NamedTemporaryFile(delete=False)
+                f.write(manifest.encode("utf-8"))
+                f.close()
+                try:
+                    with open(f.name, "rb") as fileopen:
+                        result = base64.b64encode(fileopen.read())
+                except:
+                    raise exceptions.Warning("Error",
+                                result)
 
-    def get_manifest_file(self, cr, uid, ids, context=None):
-        if context is None:
-            context = {}
+                if not is_test:
+                    state = 'end'
+                    notes = _("Sended Manifest")
+                    picking_ids.write({'notified2carrier':True})
+                    try:
+                        _logger.info("Trying to send via FTP")
+                    except:
+                        notes = _("Error sending Manifest")
+                else:
+                    notes = _("Test Manifest")
 
-        wiz = self.browse(cr, uid, ids[0], context=context)
 
-        f = tempfile.NamedTemporaryFile(delete=False)
-        f.close()
-        f.name
+            else:
+                state = 'end'
+                notes = _("Not exist pending pickings to insert on file manifest")
 
+            values = {
+                'notes':notes,
+                'state': state
+            }
+            if result:
+                values.update({
+                'file_out': result,
+                'filename': 'ManifiestoTNT'+str(datetime.now())+'.nff'})
+        record.write(values)
 
-        try:
-            base64.b64decode(result)
-        except:
-            raise orm.except_orm(
-                "Error",
-                result
-            )
-
-        self.write(cr, uid, ids[0], {
-            'file': result,
-            'filename': 'ManifiestoTNT.pdf',
-            'state': 'file'
-        }, context=context)
-
-        view_ids = self.pool['ir.ui.view'].search(
-            cr, uid, [('model', '=', 'tnt.manifest.wizard')])
-
+        view_ids = self.env['ir.ui.view'].search([('model', '=', 'tnt.manifest.wizard')])
         return {
-            'type': 'ir.actions.act_window',
-            'res_model': 'tnt.manifest.wizard',
-            'name': _('TNT Manifest'),
-            'res_id': ids[0],
-            'view_type': 'form',
-            'view_mode': 'form',
-            'view_id': view_ids[0],
-            'target': 'new',
-            'nodestroy': True,
-            'context': context
+                'name':'TNT Manifest',
+                'view_type':'form',
+                'view_mode':'form',
+                'res_model':'tnt.manifest.wizard',
+                'view_id':False,
+                'target':'new',
+                'type':'ir.actions.act_window',
+                'domain':[('id','=',self.id)],
+                'context':self.env.context,
+                'nodestroy':True,
+                'res_id':self.id,
         }

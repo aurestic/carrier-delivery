@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2015 FactorLibre (http://www.factorlibre.com)
+#    Author: Factor Libre
+#    Copyright 2013 Factor Libre S.L.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -17,29 +18,20 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'TNT Deliveries WebService',
-    'version': '0.1',
-    'author': "FactorLibre",
-    'category': 'Sales Management',
-    'depends': [
-        'delivery',
-        'base_delivery_carrier_label',
-        'base_delivery_carrier_picking_notified'
-    ],
-    'website': 'http://factorlibre.com',
-    'data': [
-        'security/ir.model.access.csv',
-        'data/ir_sequence_data.xml',
-        'view/tnt_config_view.xml',
-        'view/delivery_view.xml',
-        'wizard/tnt_manifest_wizard_view.xml'
-    ],
-    'demo': [],
-    'installable': True,
-    'auto_install': False,
-    'license': 'AGPL-3',
-    'external_dependencies': {
-        'python': ['suds'],
-    }
-}
+
+{'name': 'Base carrier module to check collect notification',
+ 'version': '1.0',
+ 'author': "Factor Libre",
+ 'maintainer': 'Factor Libre',
+ 'category': 'Delivery',
+ 'complexity': 'normal',
+ 'depends': ['base_delivery_carrier_label'],
+ 'website': 'http://www.factorlibre.com/',
+ 'data': ['view/stock_view.xml',
+          ],
+ 'tests': [],
+ 'installable': True,
+ 'auto_install': False,
+ 'license': 'AGPL-3',
+ 'application': True,
+ }

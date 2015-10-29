@@ -2,19 +2,22 @@
 <openerp>
     <data>
 
-        <record id="seur_manifest_wizard_form" model="ir.ui.view">
-            <field name="name">seur.manifest.wizard.form</field>
-            <field name="model">seur.manifest.wizard</field>
+        <record id="tnt_manifest_wizard_form" model="ir.ui.view">
+            <field name="name">tnt.manifest.wizard.form</field>
+            <field name="model">tnt.manifest.wizard</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="Seur Manifest" version="7.0">
+                <form string="TNT Manifest" version="7.0">
                     <field name="state" invisible="1"/>
                     <group attrs="{'invisible': [('state', '!=', 'init')]}">
-                        <field name="from_date"/>
+                        <field name="to_date"/>
                     </group>
                     <group attrs="{'invisible': [('state', '!=', 'file')]}">
-                        <field name="file" filename="filename"/>
+                        <field name="file_out" filename="filename"/>
                         <field name="filename" invisible="1"/>
+                    </group>
+                    <group attrs="{'invisible': [('state', '=', 'init')]}">
+                        <field name="notes"/>
                     </group>
                     <footer attrs="{'invisible': [('state', '!=', 'init')]}">
                         <button name="get_manifest_file" type="object"
@@ -26,18 +29,18 @@
             </field>
         </record>
 
-        <record id="seur_manifest_wizard_action" model="ir.actions.act_window">
-            <field name="name">Seur Manifest</field>
-            <field name="res_model">seur.manifest.wizard</field>
+        <record id="tnt_manifest_wizard_action" model="ir.actions.act_window">
+            <field name="name">TNT Manifest</field>
+            <field name="res_model">tnt.manifest.wizard</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="seur_manifest_wizard_form"/>
+            <field name="view_id" ref="tnt_manifest_wizard_form"/>
             <field name="target">new</field>
         </record>
 
-        <menuitem id="seur_manifest_wizard_menu"
-            action="seur_manifest_wizard_action" string="Seur Manifest"
+        <menuitem id="tnt_manifest_wizard_menu"
+            action="tnt_manifest_wizard_action" string="TNT Manifest"
             parent="stock.menu_stock_warehouse_mgmt"/>
 
     </data>

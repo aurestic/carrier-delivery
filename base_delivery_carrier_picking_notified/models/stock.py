@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -17,29 +18,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'TNT Deliveries WebService',
-    'version': '0.1',
-    'author': "FactorLibre",
-    'category': 'Sales Management',
-    'depends': [
-        'delivery',
-        'base_delivery_carrier_label',
-        'base_delivery_carrier_picking_notified'
-    ],
-    'website': 'http://factorlibre.com',
-    'data': [
-        'security/ir.model.access.csv',
-        'data/ir_sequence_data.xml',
-        'view/tnt_config_view.xml',
-        'view/delivery_view.xml',
-        'wizard/tnt_manifest_wizard_view.xml'
-    ],
-    'demo': [],
-    'installable': True,
-    'auto_install': False,
-    'license': 'AGPL-3',
-    'external_dependencies': {
-        'python': ['suds'],
-    }
-}
+
+import urllib
+from datetime import datetime
+from openerp import models, fields, api, exceptions
+from openerp.tools.translate import _
+
+
+class StockPicking(models.Model):
+    _inherit = 'stock.picking'
+
+    notified2carrier = fields.Boolean(string='Notified to carrier')
+    datetime_label = fields.Datetime(string='Label Generated')
