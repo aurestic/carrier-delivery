@@ -9,6 +9,10 @@
           <field name="arch" type="xml">
             <field name="type" position="after">
               <field name="tnt_config_id" attrs="{'invisible': [('type', '!=', 'tnt')], 'required': [('type', '=', 'tnt')]}"/>
+                <field name="tnt_service_code" attrs="{'invisible': [('type', '!=', 'tnt')], 'required': [('type', '=', 'tnt')]}"/>
+            </field>
+            <field name="code" position="attributes">
+                <attribute name="attrs">{'invisible': [('type', '=', 'tnt')]}</attribute>
             </field>
           </field>
         </record>

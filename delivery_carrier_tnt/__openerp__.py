@@ -33,6 +33,7 @@
         'data/ir_sequence_data.xml',
         'view/tnt_config_view.xml',
         'view/delivery_view.xml',
+        'view/stock_view.xml',
         'wizard/tnt_manifest_wizard_view.xml'
     ],
     'demo': [],

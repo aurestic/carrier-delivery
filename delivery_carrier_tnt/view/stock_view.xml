@@ -2,16 +2,17 @@
 <openerp>
     <data>
 
-        <!--<record id="view_picking_withcarrier_out_form" model="ir.ui.view">
+        <record id="view_tnt_picking_withcarrier_out_form" model="ir.ui.view">
           <field name="model">stock.picking</field>
           <field name="inherit_id" ref="base_delivery_carrier_label.view_picking_withcarrier_out_form"/>
           <field name="arch" type="xml">
             <field name="carrier_code" position="after">
-              <field name="tnt_service_type" attrs="{'invisible': [('carrier_type', '!=', 'tnt')], 'required': [('carrier_type', '=', 'tnt')]}"/>
-              <field name="tnt_frequence" attrs="{'invisible': ['|',('carrier_type', '!=', 'tnt'),('tnt_service_type','!=','0005')], 'required': [('tnt_service_type', '=', '0005')]}"/>
+              <field name="tnt_service_code" attrs="{'invisible': [('carrier_type', '!=', 'tnt')]}"/>
+            </field>
+            <field name="carrier_code" position="attributes">
+                <attribute name="attrs">{'invisible': [('carrier_type', '=', 'tnt')]}</attribute>
             </field>
           </field>
-        </record>-->
-
+        </record>
     </data>
 </openerp>

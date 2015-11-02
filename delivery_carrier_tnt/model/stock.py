@@ -89,6 +89,20 @@ class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
     lines_manifest = fields.Text(string='Lines Manifest')
+    tnt_service_code = fields.Selection(selection='_get_tnt_services', string='TNT Service Code', default=False)
+
+    def _get_tnt_services(self):
+        return self.env['delivery.carrier'].TNT_SERVICES
+
+
+    @api.onchange('carrier_id')
+    def carrier_id_onchange(self):
+        if not self.carrier_id:
+            return
+        carrier = self.carrier_id
+        self.tnt_service_code = carrier.tnt_service_code
+        super(StockPicking, self).carrier_id_onchange()
+
 
     @api.multi
     def _tnt_transm_envio_request(self):
@@ -150,11 +164,12 @@ class StockPicking(models.Model):
             requestlabel.consignment[0].contact.emailAddress = self.partner_id.email
 
         requestlabel.consignment[0].product = tnt.productType()
-        requestlabel.consignment[0].product.lineOfBusiness = '1'
-        requestlabel.consignment[0].product.groupId = '0'
-        requestlabel.consignment[0].product.subGroupId = '0'
-        requestlabel.consignment[0].product.id = 'EX'
-        requestlabel.consignment[0].product.type = 'N'
+        service_codes = self.tnt_service_code.split('_')
+        requestlabel.consignment[0].product.lineOfBusiness = service_codes[0][0:1]
+        requestlabel.consignment[0].product.groupId = service_codes[0][1:2]
+        requestlabel.consignment[0].product.subGroupId = service_codes[0][2:3]
+        requestlabel.consignment[0].product.id = service_codes[1]
+        requestlabel.consignment[0].product.type = service_codes[2]
 
         requestlabel.consignment[0].account = tnt.accountType()
         if self.carrier_id.tnt_config_id.is_test:
@@ -392,6 +407,7 @@ class StockPicking(models.Model):
 
         line_03r = ['to_user',
                     'transmission_cd',
+
                     'con_sender_acc_id',
                     'con_id',
                     'pack_id',
