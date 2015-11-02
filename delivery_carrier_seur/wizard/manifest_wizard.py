@@ -18,18 +18,17 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, api, exceptions, _
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from openerp import fields, models, api, exceptions, _
 from seur.picking import Picking
 from urllib2 import HTTPError
-from datetime import datetime
 
 
-class ManifestWizard(models.Model):
+class ManifestWizard(models.TransientModel):
     _inherit = 'manifest.wizard'
 
     @api.multi
     def get_manifest_file(self):
+        self.ensure_one()
         if self.carrier_type == 'seur':
             config = self.carrier_id.seur_config_id
 
@@ -46,14 +45,13 @@ class ManifestWizard(models.Model):
                 connect = seur_picking.test_connection()
                 if connect != 'Connection successfully':
                     raise exceptions.Warning(
-                        _('Error conecting with SEUR:\n%s' % connect))
+                        _('Error connecting with SEUR:\n%s' % connect))
             except HTTPError, e:
                 raise exceptions.Warning(
-                    _('Error conecting with SEUR try later:\n%s' % e))
+                    _('Error connecting with SEUR try later:\n%s' % e))
 
             data = {
-                'date': datetime.strptime(
-                    self.from_date, DEFAULT_SERVER_DATETIME_FORMAT).isoformat()
+                'date': fields.Datetime.from_string(self.from_date)
             }
 
             manifiesto = False
@@ -63,9 +61,11 @@ class ManifestWizard(models.Model):
                 raise exceptions.Warning(
                     _('Error generating SEUR manifest:\n%s' % e))
 
-            self.state = 'file'
-            self.file_out = manifiesto
-            self.filename = ('manifiesto_%s.pdf') % (self.from_date)
+            self.write({
+                'state': 'file',
+                'file_out': manifiesto,
+                'filename': ('manifiesto_%s.pdf') % (self.from_date)
+            })
 
             return {
                 'name': 'Seur Manifest',

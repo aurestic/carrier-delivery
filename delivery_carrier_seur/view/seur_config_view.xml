@@ -6,7 +6,7 @@
             <field name="name">seur.config.tree</field>
             <field name="model">seur.config</field>
             <field name="arch" type="xml">
-                <tree string="SEUR Config" version="7.0">
+                <tree string="SEUR Config">
                     <field name="name"/>
                     <field name="username"/>
                     <field name="file_type"/>
