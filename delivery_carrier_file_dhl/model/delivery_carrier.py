@@ -19,22 +19,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'Delivery Carrier File: DHL (Spain, Portugal and Andorra)',
-    'version': '0.1',
-    'author': "FactorLibre, Odoo Community Association (OCA)",
-    'category': 'Generic Modules/Warehouse',
-    'depends': [
-        'base_delivery_carrier_files',
-        'base_delivery_carrier_label'
-    ],
-    'website': 'http://factorlibre.com',
-    'data': [
-        'data/dhl.country.service.csv',
-        'data/dhl.zipcode.facility.csv',
-        'view/carrier_file_view.xml'
-    ],
-    'installable': True,
-    'auto_install': False,
-    'license': 'AGPL-3',
-}
+from openerp import models, api
+
+
+class DeliveryCarrier(models.Model):
+    _inherit = 'delivery.carrier'
+
+    @api.model
+    def _get_carrier_type_selection(self):
+        """ Add DHL carrier type """
+        res = super(DeliveryCarrier, self)._get_carrier_type_selection()
+        res.append(('dhl_carrier_file', 'DHL Carrier file (EPL Label)'))
+        return res

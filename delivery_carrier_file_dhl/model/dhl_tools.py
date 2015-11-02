@@ -19,22 +19,14 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'Delivery Carrier File: DHL (Spain, Portugal and Andorra)',
-    'version': '0.1',
-    'author': "FactorLibre, Odoo Community Association (OCA)",
-    'category': 'Generic Modules/Warehouse',
-    'depends': [
-        'base_delivery_carrier_files',
-        'base_delivery_carrier_label'
-    ],
-    'website': 'http://factorlibre.com',
-    'data': [
-        'data/dhl.country.service.csv',
-        'data/dhl.zipcode.facility.csv',
-        'view/carrier_file_view.xml'
-    ],
-    'installable': True,
-    'auto_install': False,
-    'license': 'AGPL-3',
-}
+
+
+def dhl_format_zip(country_code, zipcode):
+    zipcode = zipcode.replace(' ', '').replace('-', '')
+    if country_code == 'PT':
+        zipcode = zipcode[0:4]
+    if country_code == 'AD':
+        zipcode = "25999"
+    if country_code == "GI":
+        zipcode = "11999"
+    return zipcode

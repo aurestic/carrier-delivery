@@ -141,8 +141,12 @@ class DHLFileGenerator(CarrierFileGenerator):
         line.coanod = str(time_now.year)[-1]
         line.corefcli = picking.name
         line.copade = picking.partner_id.country_id.code
-        line.coexpe_ddd = ir_sequence_env.next_by_id(
-            configuration.dhl_package_sequence.id)
+        carrier_tracking_ref = picking.carrier_tracking_ref
+        if not carrier_tracking_ref:
+            carrier_tracking_ref = ir_sequence_env.next_by_id(
+                configuration.dhl_package_sequence.id)
+            picking.write({'carrier_tracking_ref': carrier_tracking_ref})
+        line.coexpe_ddd = carrier_tracking_ref
         line.cocorr = "0"
         line.consig = partner_id.name
         ship_address = partner_id.street
@@ -194,7 +198,7 @@ class DHLFileGenerator(CarrierFileGenerator):
         date_now = datetime.now()
         formatted_date = date_now.strftime('%y%m%d_%H%M%S')
         return "T{}_{}_{}.{}".format(
-            configuration.dhl_origin_station,
+            configuration.dhl_origin_station.zfill(3),
             configuration.dhl_account_code.zfill(10),
             formatted_date, extension
         )

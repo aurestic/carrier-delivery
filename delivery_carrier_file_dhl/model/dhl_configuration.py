@@ -29,3 +29,11 @@ class DHLCountryService(models.Model):
     service_name = fields.Char('Service Name', required=True)
     service_code = fields.Char('Service Code')
     service_number = fields.Char('Service Code No.', required=True)
+
+
+class DHLZipcodeFacility(models.Model):
+    _name = 'dhl.zipcode.facility'
+
+    zipcode = fields.Char('Zipcode', required=True, select=True)
+    facility_name = fields.Char('Facility Name', required=True)
+    facility_code = fields.Char('Facility Code', required=True)
