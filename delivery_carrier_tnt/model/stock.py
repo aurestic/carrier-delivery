@@ -200,7 +200,7 @@ class StockPicking(models.Model):
         #Ponemos valor a cada variable
         #Solicitar a TNT Trading Partner
         size_values={'to_user':[8,''],
-            'transmission_cd':[20,'Preguntar a TNT'],########################
+            'transmission_cd':[20,'Preguntar a TNT'],
             'con_sender_acc_id':[9, self.carrier_id.tnt_config_id.account_number or ''],
             'con_id':[15,consigment_code],
             'pack_id':[10,''],
@@ -218,12 +218,14 @@ class StockPicking(models.Model):
             'con_opsa_tgrs_wt':[8,toplainstr((self.weight or 1), 3)],
             'con_oa_tot_vl':[7,toplainstr((self.number_of_packages or 1)*(self.carrier_id.tnt_config_id.height_package*self.carrier_id.tnt_config_id.width_package*self.carrier_id.tnt_config_id.length_package),3)],
             'con_tot_piece_qt':[5,str(self.number_of_packages or 1)],
-            'con_div_id':[3,'D'],
-            'con_prd_id_contr':[4,'15N'],
+
+            'con_div_id':[3,service_codes[3]],
+            'con_prd_id_contr':[4,service_codes[4]],
+
             'con_ins_am':[13,''],
             'con_cuy_id_ins':[3,''],
             'con_cuy_id_cust_ins':[3,''],
-            'con_packing_ds':[20,'CAJA'],
+            'con_packing_ds':[20,'BOX'],
             'con_clnt_ref_tx':[24,self.name],
             'con_coll_dt_cc':[8,collection_date[:collection_date.index('T')].replace('-', '')],
             'con_coll_tm_hh':[4,''],
@@ -248,7 +250,7 @@ class StockPicking(models.Model):
             'con_cod_am':[13,''],
             'con_cuy_id_cod':[3,''],
             'con_cust_trade_tx':[121,''],
-            'con_goods_ds':[30,'CAJA'],
+            'con_goods_ds':[30,'BOX'],
             'con_ooq_am':[36,''],
             'con_un_cd':[4,''],
             'con_hax_cd':[4,''],
@@ -273,7 +275,7 @@ class StockPicking(models.Model):
             'cpn_tel_1_id_s':[16,''],
             'cpn_acc_id_s':[9,self.carrier_id.tnt_config_id.account_number or ''],
             'cpn_nm_s':[50,warehouse_address.name or ''],
-            'cpn_cou_id_s':[3,'ES'],
+            'cpn_cou_id_s':[3, warehouse_address.country_id and warehouse_address.country_id.code or ''],
             'cpn_cpf_tel_1_id_s':[16,''],
             'cpn_city_nm_s':[30,''],
             'cpn_cpf_last_nm_s':[22,warehouse_address.city or ''],
@@ -291,7 +293,7 @@ class StockPicking(models.Model):
             'cpn_tel_1_id_r':[16,''],
             'cpn_acc_id_r':[9,''],
             'cpn_nm_r':[50,(self.partner_id and self.partner_id.parent_id and self.partner_id.parent_id.name) or (self.partner_id and self.partner_id.name) or ''],
-            'cpn_cou_id_r':[3,'ES'],
+            'cpn_cou_id_r':[3,self.partner_id.country_id and self.partner_id.country_id.code or ''],
             'cpn_cpf_tel_1_id_r':[16,''],
             'cpn_city_nm_r':[30,self.partner_id.city or ''],
             'cpn_cpf_last_nm_r':[22,''],
