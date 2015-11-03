@@ -25,6 +25,7 @@
     'depends': [
         'delivery',
         'base_delivery_carrier_label',
+        'base_delivery_carrier_files',
         'base_delivery_carrier_picking_notified'
     ],
     'website': 'http://factorlibre.com',
@@ -34,7 +35,6 @@
         'view/tnt_config_view.xml',
         'view/delivery_view.xml',
         'view/stock_view.xml',
-        'wizard/tnt_manifest_wizard_view.xml'
     ],
     'demo': [],
     'installable': True,
