@@ -19,11 +19,18 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, fields, api, exceptions
-from openerp.tools.translate import _
-from seur.picking import Picking
+import logging
 from unidecode import unidecode
 from urllib2 import HTTPError
+
+from openerp import models, fields, api, exceptions
+from openerp.tools.translate import _
+
+_logger = logging.getLogger(__name__)
+try:
+    from seur.picking import Picking
+except ImportError:
+    _logger.debug('Can not `from seur.picking import Picking`.')
 
 
 class ShippingLabel(models.Model):
