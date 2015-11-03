@@ -31,16 +31,16 @@ class DeliveryCarrier(models.Model):
         return res
 
     TNT_SERVICES = [
+        ('100_EX_N_D_15N', 'Express'),
+        ('100_EX10_N_D_10N', '10:00 Express'),
+        ('100_EX12_N_D_12N', '12:00 Express'),
+        ('109_EX_N_D_15', 'Express Plus'),
         ('200_EC_N_G_48N', 'International-Economy Express'),
         ('200_EC12_N_G_412', 'International-12:00 Economy Express'),
         ('200_EX_N_G_15N', 'International-Express'),
         ('200_EX09_N_G_09N', 'International-9:00 Express'),
         ('200_EX10_N_G_10N', 'International-10:00 Express'),
         ('200_EX12_N_G_12N', 'International-12:00 Express'),
-        ('100_EX_N_D_15N', 'Express'),
-        ('100_EX10_N_D_10N', '10:00 Express'),
-        ('100_EX12_N_D_12N', '12:00 Express'),
-        ('109_EX_N_D_15', 'Express Plus'),
     ]
 
     tnt_config_id = fields.Many2one('tnt.config', string='TNT Config')
