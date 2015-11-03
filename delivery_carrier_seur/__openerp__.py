@@ -20,9 +20,9 @@
 ##############################################################################
 {
     'name': 'Seur Deliveries WebService',
-    'version': '0.1',
+    'version': '1.0',
     'author': "FactorLibre",
-    'category': 'Sales Management',
+    'category': 'Delivery',
     'depends': [
         'delivery',
         'base_delivery_carrier_label'
