@@ -20,7 +20,14 @@
 #
 ##############################################################################
 import unicodedata
+import csv
+import base64
+try:
+    import cStringIO as StringIO
+except ImportError:
+    import StringIO
 from datetime import datetime
+from openerp.addons.base_delivery_carrier_files.csv_writer import UnicodeWriter
 from openerp.addons.base_delivery_carrier_files.generator import \
     CarrierFileGenerator, BaseLine
 
@@ -81,6 +88,11 @@ class DHLLine(BaseLine):
     )
 
     zerofill_fields = ['cocodcli', 'coexpe_ddd', 'cobultos', 'cokilos',
+                       'coprodu']
+
+    required_fields = ['cocodcli', 'coanod', 'copade', 'coexpe_ddd', 'cocorr',
+                       'consig', 'codirdes', 'copobdes', 'cptlfdes',
+                       'cobultos', 'cokilos', 'cofecsal', 'coclpint',
                        'coprodu']
 
     def get_fields(self):
@@ -213,3 +225,86 @@ class DHLFileGenerator(CarrierFileGenerator):
         res = super(DHLFileGenerator, self).generate_files(
             pickings, configuration)
         return res
+
+    def _generate_files_single(self, pickings, configuration):
+        """
+        Base method to generate the pickings files, one file per picking
+        It returns a list of tuple with a filename, its content and a
+        list of pickings ids in the file
+
+        :param browse_record pickings: list of browsable pickings records
+        :param browse_record configuration: configuration of
+                                            the file to generate
+        :return: list of tuple with files to create like:
+                 [('filename1', file, [picking ids]),
+                  ('filename2', file2, [picking ids])]
+        """
+        files = []
+        for picking in pickings:
+            filename = self._get_filename_single(picking, configuration)
+            filename = self.sanitize_filename(filename)
+            rows = self._get_rows(picking, configuration)
+            file_content = self._get_file(rows, configuration)
+            files.append((filename, file_content, [picking.id]))
+            # Generate manifest
+            self._get_shippings_report(rows, configuration, filename)
+        return files
+
+    def _generate_files_grouped(self, pickings, configuration):
+        """
+        Base method to generate the pickings files, one file
+        for all pickings
+        It returns a list of tuple with a filename, its content
+         and a list of pickings ids in the file
+
+        :param browse_record pickings: list of browsable pickings records
+        :param browse_record configuration: configuration of
+                                            the file to generate
+        :return: list of tuple with files to create like:
+                 [('filename1', file, [picking ids]),
+                  ('filename2', file2, [picking ids])]
+        """
+        files = []
+        rows = []
+        filename = self._get_filename_grouped(configuration)
+        filename = self.sanitize_filename(filename)
+        for picking in pickings:
+            rows += self._get_rows(picking, configuration)
+        file_content = self._get_file(rows, configuration)
+        files.append((filename, file_content, [p.id for p in pickings]))
+        self._get_shippings_report(rows, configuration, filename)
+        return files
+
+    def _get_shippings_report(self, rows, configuration, filename):
+        dhl_line = DHLLine()
+        dhl_fields = dhl_line.fields
+        ir_attachment_env = configuration.env['ir.attachment']
+        dhl_folder = configuration.env.ref(
+            'delivery_carrier_file_dhl.dir_dhl_manifest')
+        lines = []
+        required_fields = map(lambda f: f.upper(), dhl_line.required_fields)
+        lines.append(required_fields)
+        for row in rows:
+            field_index = 0
+            line = []
+            for field in dhl_fields:
+                if field[0] in dhl_line.required_fields:
+                    line.append(row[field_index].strip())
+                field_index += 1
+            lines.append(line)
+        file_handle = StringIO.StringIO()
+        writer = UnicodeWriter(file_handle, delimiter=',', quotechar='"',
+                               lineterminator='\n', quoting=csv.QUOTE_ALL)
+        writer.writerows(lines)
+
+        file_content = base64.b64encode(file_handle.getvalue())
+        filename = filename.split('.')[0]
+        filename = "{}.csv".format(filename)
+
+        ir_attachment_env.create({
+            'name': filename,
+            'datas': file_content,
+            'datas_fname': filename,
+            'parent_id': dhl_folder.id
+        })
+        return True

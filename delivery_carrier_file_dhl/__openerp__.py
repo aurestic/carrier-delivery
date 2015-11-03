@@ -26,10 +26,12 @@
     'category': 'Generic Modules/Warehouse',
     'depends': [
         'base_delivery_carrier_files',
-        'base_delivery_carrier_label'
+        'base_delivery_carrier_label',
+        'document'
     ],
     'website': 'http://factorlibre.com',
     'data': [
+        'data/directory_data.xml',
         'data/dhl.country.service.csv',
         'data/dhl.zipcode.facility.csv',
         'view/carrier_file_view.xml'

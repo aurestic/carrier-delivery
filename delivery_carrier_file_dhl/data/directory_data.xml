@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<openerp>
+<data noupdate="1">
+    <record model="document.directory" id="dir_dhl_manifest">
+        <field name="name">DHL Manifest</field>
+        <field name="parent_id" ref="document.dir_root"/>
+        <field name="ressource_id">0</field>
+    </record>
+</data>
+</openerp>
