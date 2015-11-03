@@ -41,11 +41,8 @@ class TNTFileGenerator(CarrierFileGenerator):
 
     def _get_rows(self, picking, configuration):
         result = [[]]
-        _logger.info("get rows")
         if (not picking.notified2carrier) and picking.lines_manifest and picking.datetime_label:
             result = [[picking.lines_manifest]]
-            _logger.info(picking.lines_manifest)
-        _logger.info(result)
         return result
 
     def _write_rows(self, file_handle, rows, configuration):
@@ -59,15 +56,11 @@ class TNTFileGenerator(CarrierFileGenerator):
         :return: the file_handle as StringIO with the rows written in it
         """
         row_text = ""
-        _logger.info("rows")
-        _logger.info(rows)
         for row in rows:
             row_text += u"{}\n".format("".join(row))
         row_text = unicodedata.normalize('NFKD', row_text).encode(
             'ascii', 'ignore')
         file_handle.write(row_text)
-        _logger.info("row_text")
-        _logger.info(row_text)
         return file_handle
 
     def _tnt_filename(self, configuration, extension='nff'):

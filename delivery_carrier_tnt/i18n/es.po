@@ -159,3 +159,22 @@ msgstr "TNT Manifiesto"
 msgid "Username"
 msgstr "Usuario TNT"
 
+#. module: delivery_carrier_tnt
+#: field:delivery.carrier,tnt_service_code:0
+msgid "Default Service"
+msgstr "Servicio (p. defecto)"
+
+#. module: delivery_carrier_tnt
+#: field:stock.picking,datetime_label:0
+msgid "Label Generated"
+msgstr "Etiqueta generada"
+
+#. module: delivery_carrier_tnt
+#: field:stock.picking,lines_manifest:0
+msgid "Lines Manifest"
+msgstr "Lineas Manifiesto"
+
+#. module: delivery_carrier_tnt
+#: field:stock.picking,tnt_service_code:0
+msgid "TNT Service Code"
+msgstr "TNT Código de servicio"
