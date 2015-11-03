@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_dhl_country_service_salesman,access_dhl_country_service salesman,model_dhl_country_service,base.group_sale_salesman,1,0,0,0
 access_dhl_country_service_salesman,access_dhl_country_service salesman,model_dhl_country_service,base.group_sale_manager,1,1,1,1
+access_dhl_zipcode_facility_salesman,access_dhl_zipcode_facility salesman,model_dhl_zipcode_facility,base.group_sale_salesman,1,0,0,0
+access_dhl_zipcode_facility_salesman,access_dhl_zipcode_facility salesman,model_dhl_zipcode_facility,base.group_sale_manager,1,1,1,1
