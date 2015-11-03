@@ -9,6 +9,7 @@
                 <tree string="TNT Config" version="7.0">
                     <field name="name"/>
                     <field name="account_number"/>
+                    <field name="trading_partner"/>
                     <field name="account_country"/>
                     <field name="time" widget="float_time"/>
                     <field name="min_range_code"/>
@@ -34,6 +35,7 @@
                                 <field name="username"/>
                                 <field name="password"/>
                                 <field name="account_number"/>
+                                <field name="trading_partner"/>
                                 <field name="account_country"/>
                                 <field name="time" widget="float_time"/>
                                 <field name="min_range_code"/>

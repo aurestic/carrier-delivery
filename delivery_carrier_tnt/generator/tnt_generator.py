@@ -19,14 +19,7 @@
 #
 ##############################################################################
 import unicodedata
-import csv
-import base64
-try:
-    import cStringIO as StringIO
-except ImportError:
-    import StringIO
 from datetime import datetime
-from openerp.addons.base_delivery_carrier_files.csv_writer import UnicodeWriter
 from openerp.addons.base_delivery_carrier_files.generator import \
     CarrierFileGenerator
 import logging
@@ -41,7 +34,8 @@ class TNTFileGenerator(CarrierFileGenerator):
 
     def _get_rows(self, picking, configuration):
         result = [[]]
-        if (not picking.notified2carrier) and picking.lines_manifest and picking.datetime_label:
+        if (not picking.notified2carrier) and \
+                picking.lines_manifest and picking.datetime_label:
             result = [[picking.lines_manifest]]
         return result
 
