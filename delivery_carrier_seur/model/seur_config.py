@@ -18,7 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, fields, api
+from openerp import models, fields
 
 
 class SeurConfig(models.Model):
@@ -31,13 +31,7 @@ class SeurConfig(models.Model):
     franchise_code = fields.Char('Franchise Code', required=True)
     username = fields.Char('Username', required=True)
     password = fields.Char('Password', required=True)
-    file_type = fields.Selection('_get_file_type',
-                                 string="File type",
-                                 required=True)
-
-    @api.model
-    def _get_file_type(self):
-        return [
-            ('pdf', 'PDF'),
-            ('txt', 'TXT')
-        ]
+    file_type = fields.Selection([
+        ('pdf', 'PDF'),
+        ('txt', 'TXT')
+    ], string="File type", required=True)
