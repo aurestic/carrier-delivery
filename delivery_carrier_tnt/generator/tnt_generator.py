@@ -37,6 +37,8 @@ class TNTFileGenerator(CarrierFileGenerator):
         if (not picking.notified2carrier) and \
                 picking.lines_manifest and picking.datetime_label:
             result = [[picking.lines_manifest]]
+            if not picking.carrier_id.tnt_config_id.is_test:
+                picking.notified2carrier = True
         return result
 
     def _write_rows(self, file_handle, rows, configuration):
