@@ -35,5 +35,4 @@ class CarrierFile(models.Model):
     dhl_account_code = fields.Char('DHL Account Code')
     dhl_origin_station = fields.Char('DHL Origin Station')
     dhl_package_sequence = fields.Many2one('ir.sequence',
-                                           "DHL Package Sequence",
-                                           required=True)
+                                           "DHL Package Sequence")

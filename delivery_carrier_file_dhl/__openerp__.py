@@ -31,6 +31,7 @@
     ],
     'website': 'http://factorlibre.com',
     'data': [
+        'security/ir.model.access.csv',
         'data/directory_data.xml',
         'data/dhl.country.service.csv',
         'data/dhl.zipcode.facility.csv',
