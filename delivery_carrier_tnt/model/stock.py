@@ -25,7 +25,6 @@ import httplib
 import base64
 import tempfile
 from lxml import etree
-import tnt
 import os
 import sys
 import subprocess
@@ -115,7 +114,6 @@ class StockPicking(models.Model):
 
         lines_manifest = ''
         self.ensure_one()
-        message = ''
         res = ''
         consigment_code = self.env['ir.sequence'].get(
             'tnt.consignment.sequence')
@@ -128,114 +126,152 @@ class StockPicking(models.Model):
         collection_date = get_collection_date(
             self.carrier_id.tnt_config_id.time)
 
-        root = etree.Element("requestlabel")
-
-        requestlabel = tnt.labelRequest()
-        requestlabel.consignment.append(tnt.labelConsignmentsType())
-        requestlabel.consignment[0].key = 'con1'
-        requestlabel.consignment[0].consignmentIdentity = \
-            tnt.consignmentIdentityType()
+        requestlabel = etree.Element("labelRequest")
+        consignlabel = etree.SubElement(requestlabel, "consignment")
+        consignlabel.attrib['key'] = 'CON1'
+        consignidentity = etree.SubElement(consignlabel, "consignmentIdentity")
         consigment_code = consigment_code + get_tnt_dc(consigment_code)
-        requestlabel.consignment[0].consignmentIdentity.consignmentNumber = \
-            consigment_code
-        requestlabel.consignment[0].consignmentIdentity.customerReference = \
-            self.name
-        requestlabel.consignment[0].collectionDateTime = collection_date
-        requestlabel.consignment[0].sender = tnt.nameAndAddressRequestType()
+        consignnumber = etree.SubElement(consignidentity, "consignmentNumber")
+        consignnumber.text = consigment_code
+        customerreference = etree.SubElement(
+            consignidentity, "customerReference")
+        customerreference.text = self.name
+        consigndatetime = etree.SubElement(consignlabel, "collectionDateTime")
+        consigndatetime.text = collection_date
+        consignsender = etree.SubElement(consignlabel, "sender")
         warehouse_address = self.picking_type_id.warehouse_id.partner_id
-        requestlabel.consignment[0].sender.name = warehouse_address.name
-        requestlabel.consignment[0].sender.addressLine1 = \
-            warehouse_address.street
+        sendername = etree.SubElement(consignsender, "name")
+        sendername.text = warehouse_address.name
+        senderaddress1 = etree.SubElement(consignsender, "addressLine1")
+        senderaddress1.text = warehouse_address.street
         if warehouse_address.street2:
-            requestlabel.consignment[0].sender.addressLine2 = \
-                warehouse_address.street2
+            senderaddress2 = etree.SubElement(consignsender, "addressLine2")
+            senderaddress2.text = warehouse_address.street2
         if warehouse_address.city:
-            requestlabel.consignment[0].sender.town = warehouse_address.city
-            requestlabel.consignment[0].sender.exactMatch = 'N'
+            sendertown = etree.SubElement(consignsender, "town")
+            sendertown.text = warehouse_address.city
+            sendermatch = etree.SubElement(consignsender, "exactMatch")
+            sendermatch.text = 'N'
         if warehouse_address.state_id:
-            requestlabel.consignment[0].sender.province = \
-                warehouse_address.state_id.name or ''
+            senderprovince = etree.SubElement(consignsender, "province")
+            senderprovince.text = warehouse_address.state_id.name
         if warehouse_address.zip:
-            requestlabel.consignment[0].sender.postcode = \
-                warehouse_address.zip.zfill(5)
-        requestlabel.consignment[0].sender.country = \
-            warehouse_address.country_id.code or ''
-        requestlabel.consignment[0].delivery = tnt.nameAndAddressRequestType()
-        requestlabel.consignment[0].delivery.name = (
+            senderzip = etree.SubElement(consignsender, "postcode")
+            senderzip.text = warehouse_address.zip.zfill(5)
+        sendercountry = etree.SubElement(consignsender, "country")
+        sendercountry.text = warehouse_address.country_id.code or ''
+
+        consigndelivery = etree.SubElement(consignlabel, "delivery")
+        deliveryname = etree.SubElement(consigndelivery, "name")
+        deliveryname.text = (
             self.partner_id and self.partner_id.parent_id and
             self.partner_id.parent_id.name) or (
             self.partner_id and self.partner_id.name) or ''
-        requestlabel.consignment[0].delivery.addressLine1 = \
-            self.partner_id.street
+        deliveryaddress1 = etree.SubElement(consigndelivery, "addressLine1")
+        deliveryaddress1.text = self.partner_id.street
         if self.partner_id.street2:
-            requestlabel.consignment[0].delivery.addressLine2 = \
-                self.partner_id.street2
+            deliveryaddress2 = etree.SubElement(
+                consigndelivery, "addressLine2")
+            deliveryaddress2.text = self.partner_id.street2
         if self.partner_id.city:
-            requestlabel.consignment[0].delivery.town = self.partner_id.city
-            requestlabel.consignment[0].delivery.exactMatch = 'N'
+            deliverytown = etree.SubElement(consigndelivery, "town")
+            deliverytown.text = self.partner_id.city
+            deliverymatch = etree.SubElement(consigndelivery, "exactMatch")
+            deliverymatch.text = 'N'
         if self.partner_id.state_id:
-            requestlabel.consignment[0].delivery.province = \
-                self.partner_id.state_id.name
+            deliveryprovince = etree.SubElement(consigndelivery, "province")
+            deliveryprovince.text = self.partner_id.state_id.name
         if self.partner_id.zip:
-            requestlabel.consignment[0].delivery.postcode = \
-                self.partner_id.zip.zfill(5)
-        requestlabel.consignment[0].delivery.country = \
-            self.partner_id.country_id.code or ''
-        requestlabel.consignment[0].contact = tnt.contactType()
-        requestlabel.consignment[0].contact.name = (
+            deliveryzip = etree.SubElement(consigndelivery, "postcode")
+            deliveryzip.text = self.partner_id.zip.zfill(5)
+        deliverycountry = etree.SubElement(consigndelivery, "country")
+        deliverycountry.text = self.partner_id.country_id.code or ''
+
+        consigncontact = etree.SubElement(consignlabel, "contact")
+        contactname = etree.SubElement(consigncontact, "name")
+        contactname.text = (
             self.partner_id and self.partner_id.parent_id and
             self.partner_id.parent_id.name) or (
             self.partner_id and self.partner_id.name) or ''
         if self.partner_id.phone:
-            requestlabel.consignment[0].contact.telephoneNumber = \
-                self.partner_id.phone
+            contactphone = etree.SubElement(consigncontact, "telephoneNumber")
+            contactphone.text = self.partner_id.phone
         if self.partner_id.email:
-            requestlabel.consignment[0].contact.emailAddress = \
-                self.partner_id.email
+            contactemail = etree.SubElement(consigncontact, "emailAddress")
+            contactemail.text = self.partner_id.email
 
-        requestlabel.consignment[0].product = tnt.productType()
+        consignproduct = etree.SubElement(consignlabel, "product")
         service_codes = self.tnt_service_code.split('_')
-        requestlabel.consignment[0].product.lineOfBusiness = \
-            service_codes[0][0:1]
-        requestlabel.consignment[0].product.groupId = service_codes[0][1:2]
-        requestlabel.consignment[0].product.subGroupId = service_codes[0][2:3]
-        requestlabel.consignment[0].product.id = service_codes[1]
-        requestlabel.consignment[0].product.type = service_codes[2]
+        productbusiness = etree.SubElement(consignproduct, "lineOfBusiness")
+        productbusiness.text = service_codes[0][0:1]
+        productgroup = etree.SubElement(consignproduct, "groupId")
+        productgroup.text = service_codes[0][1:2]
+        productsubgroup = etree.SubElement(consignproduct, "subGroupId")
+        productsubgroup.text = service_codes[0][2:3]
+        productid = etree.SubElement(consignproduct, "id")
+        productid.text = service_codes[1]
+        producttype = etree.SubElement(consignproduct, "type")
+        producttype.text = service_codes[2]
 
-        requestlabel.consignment[0].account = tnt.accountType()
+        consignaccount = etree.SubElement(consignlabel, "account")
+        accountnumber = etree.SubElement(consignaccount, "accountNumber")
         if self.carrier_id.tnt_config_id.is_test:
-            requestlabel.consignment[0].account.accountNumber = '1234567'
+            accountnumber.text = '1234567'
         else:
-            requestlabel.consignment[0].account.accountNumber = \
-                self.carrier_id.tnt_config_id.account_number
-        requestlabel.consignment[0].account.accountCountry = \
-            self.carrier_id.tnt_config_id.account_country
+            accountnumber.text = self.carrier_id.tnt_config_id.account_number
+        accountcountry = etree.SubElement(consignaccount, "accountCountry")
+        accountcountry.text = self.carrier_id.tnt_config_id.account_country
 
-        requestlabel.consignment[0].totalNumberOfPieces = \
-            self.number_of_packages or 1
+        consignnumpackages = etree.SubElement(
+            consignlabel, "totalNumberOfPieces")
+        consignnumpackages.text = str(self.number_of_packages or 1)
 
-        requestlabel.consignment[0].pieceLine.append(tnt.pieceLineType())
-        requestlabel.consignment[0].pieceLine[0].identifier = 1
+        consignpieceline = etree.SubElement(consignlabel, "pieceLine")
+        lineidentifier = etree.SubElement(consignpieceline, "identifier")
+        lineidentifier.text = str(1)
         desc = ','.join([move.name[0:5] for move in self.move_lines])
-        requestlabel.consignment[0].pieceLine[0].goodsDescription = desc[0:30]
-        requestlabel.consignment[0].pieceLine[0].pieceMeasurements = \
-            tnt.measurementsType()
-        requestlabel.consignment[0].pieceLine[0].pieceMeasurements.length = \
-            self.carrier_id.tnt_config_id.length_package
-        requestlabel.consignment[0].pieceLine[0].pieceMeasurements.width = \
-            self.carrier_id.tnt_config_id.width_package
-        requestlabel.consignment[0].pieceLine[0].pieceMeasurements.height = \
-            self.carrier_id.tnt_config_id.height_package
-        requestlabel.consignment[0].pieceLine[0].pieceMeasurements.weight = \
-            self.weight or 1
-
-        requestlabel.consignment[0].pieceLine[0].pieces.append(tnt.pieceType())
-        requestlabel.consignment[0].pieceLine[0].pieces[0].sequenceNumbers = \
-            str(range(1, (self.number_of_packages or 1) + 1)).\
+        linegoodsdescription = etree.SubElement(
+            consignpieceline, "goodsDescription")
+        linegoodsdescription.text = desc[0:30]
+        linepiecemeasurements = etree.SubElement(
+            consignpieceline, "pieceMeasurements")
+        measurementslength = etree.SubElement(linepiecemeasurements, "length")
+        measurementslength.text = str(
+            self.carrier_id.tnt_config_id.length_package)
+        measurementswidth = etree.SubElement(linepiecemeasurements, "width")
+        measurementswidth.text = str(
+            self.carrier_id.tnt_config_id.width_package)
+        measurementsheight = etree.SubElement(linepiecemeasurements, "height")
+        measurementsheight.text = str(
+            self.carrier_id.tnt_config_id.height_package)
+        measurementsweight = etree.SubElement(linepiecemeasurements, "weight")
+        measurementsweight.text = str(self.weight or 1)
+        linepieces = etree.SubElement(consignpieceline, "pieces")
+        piecessequence = etree.SubElement(linepieces, "sequenceNumbers")
+        piecessequence.text = str(range(1, (self.number_of_packages or 1) + 1)).\
             strip('[]').replace(' ', '')
-        requestlabel.consignment[0].pieceLine[0].pieces[0].pieceReference = \
-            'COMPONENT'
-        message = requestlabel.toxml("utf-8")
+        piecesreference = etree.SubElement(linepieces, "pieceReference")
+        piecesreference.text = 'COMPONENT'
+
+        xml_string = etree.tostring(
+            requestlabel, pretty_print=True, encoding='UTF-8',
+            xml_declaration=True)
+        current_path = os.path.join(os.path.dirname(os.path.abspath(__file__)))
+        xsd_etree_obj = etree.parse(
+            tools.file_open(current_path + "/labelRequest.xsd"))
+        official_pain_schema = etree.XMLSchema(xsd_etree_obj)
+
+        try:
+            root_to_validate = etree.fromstring(xml_string)
+            official_pain_schema.assertValid(root_to_validate)
+        except Exception, e:
+            raise Warning(
+                _("The generated XML file is not valid against the official "
+                    "XML Schema Definition. The generated XML file and the "
+                    "full error have been written in the server logs. Here "
+                    "is the error, which may give you an idea on the cause "
+                    "of the problem : %s")
+                % unicode(e))
 
         zeros_fill = ['con_sender_acc_id',
                       'con_opsa_tgrs_wt',
@@ -251,8 +287,6 @@ class StockPicking(models.Model):
                       'condim_qt'
                       ]
 
-        # Ponemos valor a cada variable
-        # Solicitar a TNT Trading Partner
         vol = self.carrier_id.tnt_config_id.height_package * \
             self.carrier_id.tnt_config_id.width_package * \
             self.carrier_id.tnt_config_id.length_package
@@ -566,10 +600,10 @@ class StockPicking(models.Model):
             webservice.putheader("Host", host)
             webservice.putheader("User-Agent", "Python http auth")
             webservice.putheader("Content-type", "text/xml")
-            webservice.putheader("Content-length", "%d" % len(message))
+            webservice.putheader("Content-length", "%d" % len(xml_string))
             webservice.putheader("Authorization", "Basic %s" % auth)
             webservice.endheaders()
-            webservice.send(message)
+            webservice.send(xml_string)
             statuscode, statusmessage, header = webservice.getreply()
             res = webservice.getfile().read()
         except:
