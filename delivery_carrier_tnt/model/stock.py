@@ -143,7 +143,7 @@ class StockPicking(models.Model):
         sendername = etree.SubElement(consignsender, "name")
         sendername.text = warehouse_address.name
         senderaddress1 = etree.SubElement(consignsender, "addressLine1")
-        senderaddress1.text = warehouse_address.street
+        senderaddress1.text = warehouse_address.street or ''
         if warehouse_address.street2:
             senderaddress2 = etree.SubElement(consignsender, "addressLine2")
             senderaddress2.text = warehouse_address.street2
@@ -168,7 +168,7 @@ class StockPicking(models.Model):
             self.partner_id.parent_id.name) or (
             self.partner_id and self.partner_id.name) or ''
         deliveryaddress1 = etree.SubElement(consigndelivery, "addressLine1")
-        deliveryaddress1.text = self.partner_id.street
+        deliveryaddress1.text = self.partner_id.street or ''
         if self.partner_id.street2:
             deliveryaddress2 = etree.SubElement(
                 consigndelivery, "addressLine2")
