@@ -201,7 +201,12 @@ class StockPicking(models.Model):
             contactemail.text = self.partner_id.email
 
         consignproduct = etree.SubElement(consignlabel, "product")
-        service_codes = self.tnt_service_code.split('_')
+        service_codes = '100_EX_N_D_15N'.split('_')
+        if self.tnt_service_code:
+            service_codes = self.tnt_service_code.split('_')
+        elif self.carrier_id.tnt_service_code:
+            service_codes = self.carrier_id.tnt_service_code.split('_')
+
         productbusiness = etree.SubElement(consignproduct, "lineOfBusiness")
         productbusiness.text = service_codes[0][0:1]
         productgroup = etree.SubElement(consignproduct, "groupId")
