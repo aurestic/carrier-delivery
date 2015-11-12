@@ -126,6 +126,9 @@ class StockPicking(models.Model):
 
     def _get_label_data(self):
         partner = self.partner_id.parent_id or self.partner_id
+        if not self.seur_service_code or not self.seur_product_code:
+            raise exceptions.Warning(_(
+                'Please select Seur service and product codes in picking'))
         data = {
             'servicio': unidecode(self.seur_service_code),
             'product': unidecode(self.seur_product_code),

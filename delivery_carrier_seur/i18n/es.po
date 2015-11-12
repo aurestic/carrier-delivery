@@ -247,3 +247,8 @@ msgstr "{'invisible': [('carrier_type', '=', 'seur')]}"
 msgid "{'invisible': [('type', '=', 'seur')]}"
 msgstr "{'invisible': [('type', '=', 'seur')]}"
 
+#. module: delivery_carrier_seur
+#: code:addons/delivery_carrier_seur/model/stock.py:130
+#, python-format
+msgid "Please select Seur service and product codes in picking"
+msgstr "Por favor seleccione el Servicio y el producto de Seur en el albarán"
