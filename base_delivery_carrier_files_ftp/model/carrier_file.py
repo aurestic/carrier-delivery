@@ -38,6 +38,7 @@ class CarrierFile(models.Model):
     ftp_host = fields.Char('FTP Host')
     ftp_user = fields.Char('FTP User')
     ftp_password = fields.Char('FTP Password')
+    ftp_path = fields.Char('FTP Path')
 
     @api.multi
     def _write_file(self, filename, file_content):
@@ -49,6 +50,13 @@ class CarrierFile(models.Model):
             except Exception as e:
                 raise exceptions.Warning(_(
                     'Failed to connect/login to FTP: {}').format(e))
+            if self.ftp_path:
+                try:
+                    ftp.cwd(self.ftp_path)
+                except Exception as e:
+                    raise exceptions.Warning(_(
+                        'Problem setting the current directory on FTP: {}').
+                        format(e))
             ftp_command = "STOR {}".format(filename)
             with tempfile.NamedTemporaryFile() as temp:
                 temp.write(file_content)
