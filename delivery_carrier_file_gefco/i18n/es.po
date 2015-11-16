@@ -1,0 +1,47 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* delivery_carrier_file_gefco
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-16 11:13+0000\n"
+"PO-Revision-Date: 2015-11-16 12:16+0100\n"
+"Last-Translator: Hugo Santos <hugo.santos@factorlibre.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: es_ES\n"
+
+#. module: delivery_carrier_file_gefco
+#: field:delivery.carrier.file,gefco_account_number:0
+msgid "Gefco Account Number"
+msgstr "N. Cuenta Gefco"
+
+#. module: delivery_carrier_file_gefco
+#: field:delivery.carrier.file,gefco_manifest_sequence:0
+msgid "Gefco Manifest Sequence"
+msgstr "Secuencia manifiesto Gefco"
+
+#. module: delivery_carrier_file_gefco
+#: field:delivery.carrier.file,gefco_picking_sequence:0
+msgid "Gefco Picking Sequence"
+msgstr "Secuencia albaranes Gefco"
+
+#. module: delivery_carrier_file_gefco
+#: field:delivery.carrier.file,gefco_shipper_id:0
+msgid "Gefco Shipper Identification"
+msgstr "Id. Expedidor Gefco"
+
+#. module: delivery_carrier_file_gefco
+#: field:delivery.carrier.file,gefco_agency_code:0
+msgid "Gefco agency code"
+msgstr "Id. Agencia Gefco"
+
+#. module: delivery_carrier_file_gefco
+#: view:delivery.carrier.file:delivery_carrier_file_gefco.view_delivery_carrier_file_form
+msgid "Gefco options"
+msgstr "Opciones Gefco"
