@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-16 11:13+0000\n"
-"PO-Revision-Date: 2015-11-16 11:13+0000\n"
+"POT-Creation-Date: 2015-11-16 17:45+0000\n"
+"PO-Revision-Date: 2015-11-16 17:45+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,74 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: delivery_carrier_file_gefco
+#: view:gefco.destination.config.wizard:delivery_carrier_file_gefco.gefco_destination_wizard_view
+msgid "Cancel"
+msgstr ""
+
+#. module: delivery_carrier_file_gefco
+#: model:ir.model,name:delivery_carrier_file_gefco.model_delivery_carrier
+msgid "Carrier"
+msgstr ""
+
+#. module: delivery_carrier_file_gefco
+#: field:gefco.destination,create_uid:0
+#: field:gefco.destination.config.wizard,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: delivery_carrier_file_gefco
+#: field:gefco.destination,create_date:0
+#: field:gefco.destination.config.wizard,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: delivery_carrier_file_gefco
+#: field:gefco.destination,destination_code:0
+msgid "Destination Code"
+msgstr ""
+
+#. module: delivery_carrier_file_gefco
+#: field:gefco.destination,country_id:0
+msgid "Destination Country"
+msgstr ""
+
+#. module: delivery_carrier_file_gefco
+#: field:gefco.destination,directional_code:0
+msgid "Directional Code"
+msgstr ""
+
+#. module: delivery_carrier_file_gefco
+#: view:gefco.destination.config.wizard:delivery_carrier_file_gefco.gefco_destination_wizard_view
+msgid "For the correct behaviour of GEFCO shipping label is necesary to load\n"
+"                    the destinations table. Press the button to load it"
+msgstr ""
+
+#. module: delivery_carrier_file_gefco
+#: model:ir.ui.menu,name:delivery_carrier_file_gefco.gefco_config_menu
+msgid "Gefco"
+msgstr ""
+
+#. module: delivery_carrier_file_gefco
 #: field:delivery.carrier.file,gefco_account_number:0
 msgid "Gefco Account Number"
+msgstr ""
+
+#. module: delivery_carrier_file_gefco
+#: view:gefco.destination:delivery_carrier_file_gefco.gefco_destination_form_view
+msgid "Gefco Destination"
+msgstr ""
+
+#. module: delivery_carrier_file_gefco
+#: view:gefco.destination:delivery_carrier_file_gefco.gefco_destination_tree_view
+#: model:ir.actions.act_window,name:delivery_carrier_file_gefco.gefco_destination_view_action
+#: model:ir.ui.menu,name:delivery_carrier_file_gefco.gefco_destination_config_menu
+msgid "Gefco Destinations"
+msgstr ""
+
+#. module: delivery_carrier_file_gefco
+#: view:gefco.destination.config.wizard:delivery_carrier_file_gefco.gefco_destination_wizard_view
+#: model:ir.actions.act_window,name:delivery_carrier_file_gefco.action_config_gefco_destination
+msgid "Gefco Destinations Load"
 msgstr ""
 
 #. module: delivery_carrier_file_gefco
@@ -43,5 +109,54 @@ msgstr ""
 #. module: delivery_carrier_file_gefco
 #: view:delivery.carrier.file:delivery_carrier_file_gefco.view_delivery_carrier_file_form
 msgid "Gefco options"
+msgstr ""
+
+#. module: delivery_carrier_file_gefco
+#: field:gefco.destination,id:0
+#: field:gefco.destination.config.wizard,id:0
+msgid "ID"
+msgstr ""
+
+#. module: delivery_carrier_file_gefco
+#: view:gefco.destination.config.wizard:delivery_carrier_file_gefco.gefco_destination_wizard_view
+msgid "Import"
+msgstr ""
+
+#. module: delivery_carrier_file_gefco
+#: field:gefco.destination,write_uid:0
+#: field:gefco.destination.config.wizard,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: delivery_carrier_file_gefco
+#: field:gefco.destination,write_date:0
+#: field:gefco.destination.config.wizard,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: delivery_carrier_file_gefco
+#: model:ir.model,name:delivery_carrier_file_gefco.model_stock_picking
+msgid "Picking List"
+msgstr ""
+
+#. module: delivery_carrier_file_gefco
+#: code:addons/delivery_carrier_file_gefco/models/stock.py:71
+#, python-format
+msgid "Please define an address in the %s warehouse"
+msgstr ""
+
+#. module: delivery_carrier_file_gefco
+#: model:ir.model,name:delivery_carrier_file_gefco.model_shipping_label
+msgid "Shipping Label"
+msgstr ""
+
+#. module: delivery_carrier_file_gefco
+#: field:gefco.destination,zip_code:0
+msgid "Zip Code"
+msgstr ""
+
+#. module: delivery_carrier_file_gefco
+#: view:gefco.destination.config.wizard:delivery_carrier_file_gefco.gefco_destination_wizard_view
+msgid "or"
 msgstr ""
 
