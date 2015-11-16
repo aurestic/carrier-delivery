@@ -19,6 +19,8 @@
                                 attrs="{'required': [('type', '=', 'gefco')]}"/>
                             <field name="gefco_picking_sequence"
                                 attrs="{'required': [('type', '=', 'gefco')]}"/>
+                            <field name="gefco_manifest_sequence"
+                                attrs="{'required': [('type', '=', 'gefco')]}"/>
                         </group>
                     </form>
                 </data>

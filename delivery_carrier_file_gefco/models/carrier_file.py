@@ -37,3 +37,5 @@ class CarrierFile(models.Model):
     gefco_agency_code = fields.Char('Gefco agency code')
     gefco_picking_sequence = fields.Many2one('ir.sequence',
                                              'Gefco Picking Sequence')
+    gefco_manifest_sequence = fields.Many2one('ir.sequence',
+                                              'Gefco Manifest Sequence')

@@ -176,6 +176,9 @@ class GefcoFileGenerator(CarrierFileGenerator):
         return carrier_name == 'gefco'
 
     def _get_header_rows(self, pickings, configuration):
+        ir_sequence_env = pickings.env['ir.sequence']
+        manifest_number = ir_sequence_env.next_by_id(
+            configuration.gefco_manifest_sequence.id)
         header_line = GefcoHeaderLine()
         header_line.header_id = "H1"
         header_line.application = "787"
@@ -184,20 +187,22 @@ class GefcoFileGenerator(CarrierFileGenerator):
         header_line.shipper_name = ""
         header_line.shipper_city = ""
         header_line.agency_code = configuration.gefco_agency_code
-        header_line.manifest_number = ""  # Ver de donde se saca
+        header_line.manifest_number = manifest_number
         header_line.load_number = 0
         header_line.document_date = datetime.now().strftime("%Y%m%d")
         header_line.shipments_in_load = len(pickings)
         return [header_line.get_fields()]
 
     def _get_rows(self, picking, configuration):
-
+        ir_sequence_env = picking.env['ir.sequence']
+        picking_sequence = ir_sequence_env.next_by_id(
+            configuration.gefco_picking_sequence.id)
         number_of_packages = picking.number_of_packages or 1
 
         detail_line = GefcoDetailLine()
         detail_line.detail_id = "RDE"
         detail_line.picking_reference = picking.origin
-        detail_line.waybill_number = ""  # Ver como se rellena
+        detail_line.waybill_number = picking_sequence
         detail_line.print_receipt = "1"
 
         partner_id = picking.partner_id
@@ -220,7 +225,22 @@ class GefcoFileGenerator(CarrierFileGenerator):
         detail_line.number_of_handing_units = str(number_of_packages)
         detail_line.number_of_retornable_equiment = "0"
         detail_line.weight = int(picking.weight) or "1"
-        detail_line.incoterms = "TD"  # Fill Incoterm
+        # Incoterms
+        # EXW: Ex Works
+        # FAS: Free along side
+        # FOB: Free on board
+        # CFR: Cost and freight
+        # CIF: Cost, insurance and freight
+        # CPT: Carriage paid to
+        # CIP: Carriage and insurance paid
+        # DAF: Delivered at frontier
+        # DES: Delivered ex ship
+        # DEQ: Delivered ex quai
+        # DDU: Delivery duty unpaid
+        # DDP: Delivery duty paid
+        if partner_id.country_id.code == wh_partner_id.country_id.code:
+            incoterm = "P"
+        detail_line.incoterms = incoterm
 
         detail_line.shipper_id = configuration.gefco_shipper_id
         detail_line.shipper_name = wh_partner_id.name or ''
@@ -229,14 +249,14 @@ class GefcoFileGenerator(CarrierFileGenerator):
         detail_line.shipper_city = wh_partner_id.city or ''
         detail_line.shipper_zipcode = wh_partner_id.zip or ''
         detail_line.shipper_country_code = wh_partner_id.country_id.code or ''
-
         packages_lines = []
         for package_number in range(number_of_packages):
             package_line = GefcoPackageLine()
+            package_code = "{}{}".format(
+                picking_sequence, str(package_number + 1).zfill(2))
             package_line.package_record_id = "PCI"
-            # TODO: Generar codigo
-            package_line.shipper_parcel_number = "Z11121312"
-            package_line.handling_unit_number = ""  # Poner codigo generado
+            package_line.shipper_parcel_number = package_code
+            package_line.handling_unit_number = package_code
             packages_lines.append(package_line.get_fields())
 
         picking_lines = [detail_line.get_fields()] + packages_lines
