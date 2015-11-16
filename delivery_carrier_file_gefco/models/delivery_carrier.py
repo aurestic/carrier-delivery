@@ -19,23 +19,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'Delivery Carrier File: Gefco',
-    'version': '1.0',
-    'author': "FactorLibre, Odoo Community Association (OCA)",
-    'category': 'Generic Modules/Warehouse',
-    'depends': [
-        'base_delivery_carrier_files',
-        'base_delivery_carrier_label',
-    ],
-    'website': 'http://factorlibre.com',
-    'data': [
-        'security/ir.model.access.csv',
-        'views/carrier_file_view.xml',
-        'views/gefco_destination_view.xml',
-        'wizard/gefco_destination_config_wizard_view.xml'
-    ],
-    'installable': True,
-    'auto_install': False,
-    'license': 'AGPL-3',
-}
+from openerp import models, api
+
+
+class DeliveryCarrier(models.Model):
+    _inherit = 'delivery.carrier'
+
+    @api.model
+    def _get_carrier_type_selection(self):
+        """ Add Gefco carrier type """
+        res = super(DeliveryCarrier, self)._get_carrier_type_selection()
+        res.append(('gefco_carrier_file', 'Gefco Carrier file (ZPL Label)'))
+        return res

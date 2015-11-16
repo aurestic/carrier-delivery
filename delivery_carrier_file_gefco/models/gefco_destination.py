@@ -19,23 +19,14 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'Delivery Carrier File: Gefco',
-    'version': '1.0',
-    'author': "FactorLibre, Odoo Community Association (OCA)",
-    'category': 'Generic Modules/Warehouse',
-    'depends': [
-        'base_delivery_carrier_files',
-        'base_delivery_carrier_label',
-    ],
-    'website': 'http://factorlibre.com',
-    'data': [
-        'security/ir.model.access.csv',
-        'views/carrier_file_view.xml',
-        'views/gefco_destination_view.xml',
-        'wizard/gefco_destination_config_wizard_view.xml'
-    ],
-    'installable': True,
-    'auto_install': False,
-    'license': 'AGPL-3',
-}
+from openerp import models, fields
+
+
+class GefcoDestination(models.Model):
+    _name = 'gefco.destination'
+
+    country_id = fields.Many2one('res.country', 'Destination Country',
+                                 required=True, index=True)
+    zip_code = fields.Char('Zip Code', required=True, index=True)
+    directional_code = fields.Char('Directional Code', required=True)
+    destination_code = fields.Char('Destination Code')

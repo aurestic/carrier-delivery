@@ -195,8 +195,11 @@ class GefcoFileGenerator(CarrierFileGenerator):
 
     def _get_rows(self, picking, configuration):
         ir_sequence_env = picking.env['ir.sequence']
-        picking_sequence = ir_sequence_env.next_by_id(
-            configuration.gefco_picking_sequence.id)
+        picking_sequence = picking.carrier_tracking_ref
+        if not picking_sequence:
+            picking_sequence = ir_sequence_env.next_by_id(
+                configuration.gefco_picking_sequence.id)
+            picking.write({'carrier_tracking_ref': picking_sequence})
         number_of_packages = picking.number_of_packages or 1
 
         detail_line = GefcoDetailLine()
@@ -238,6 +241,7 @@ class GefcoFileGenerator(CarrierFileGenerator):
         # DEQ: Delivered ex quai
         # DDU: Delivery duty unpaid
         # DDP: Delivery duty paid
+        incoterm = "DDU"
         if partner_id.country_id.code == wh_partner_id.country_id.code:
             incoterm = "P"
         detail_line.incoterms = incoterm

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="gefco_destination_tree_view" model="ir.ui.view">
+            <field name="name">gefco.destination.tree</field>
+            <field name="model">gefco.destination</field>
+            <field name="arch" type="xml">
+                <tree string="Gefco Destinations">
+                    <field name="country_id"/>
+                    <field name="zip_code"/>
+                    <field name="directional_code"/>
+                    <field name="destination_code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="gefco_destination_form_view" model="ir.ui.view">
+            <field name="name">gefco.destination.form</field>
+            <field name="model">gefco.destination</field>
+            <field name="arch" type="xml">
+                <form string="Gefco Destination">
+                    <group>
+                        <field name="country_id"/>
+                        <field name="zip_code"/>
+                    </group>
+                    <group>
+                        <field name="directional_code"/>
+                        <field name="destination_code"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="gefco_destination_view_action" model="ir.actions.act_window">
+            <field name="name">Gefco Destinations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">gefco.destination</field>
+            <field name="view_id" ref="gefco_destination_tree_view"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="gefco_config_menu"
+            parent="base_delivery_carrier_label.menu_carriers_config"
+            name="Gefco" sequence="20"/>
+        <menuitem id="gefco_destination_config_menu"
+            parent="gefco_config_menu" action="gefco_destination_view_action"/>
+    </data>
+</openerp>
