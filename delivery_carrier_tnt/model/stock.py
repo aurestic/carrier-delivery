@@ -327,7 +327,7 @@ class StockPicking(models.Model):
                        'con_div_id': [3, service_codes[3]],
                        'con_prd_id_contr': [4, service_codes[4]],
                        'con_ins_am': [13, ''],
-                       'con_cuy_id_ins': [3, ''],
+                       'con_cuy_id_ins': [3, 'EUR'],
                        'con_cuy_id_cust_ins': [3, ''],
                        'con_packing_ds': [20, 'BOX'],
                        'con_clnt_ref_tx': [24, self.name],
@@ -336,7 +336,7 @@ class StockPicking(models.Model):
                        collection_date[:collection_date.index('T')].
                        replace('-', '')],
                        'con_coll_tm_hh': [4, ''],
-                       'con_val_of_goods_am': [13, ''],
+                       'con_val_of_goods_am': [13, toplainstr(1, 2)],
                        'con_cuy_id_val_of_goods': [3, 'EUR'],
                        'con_cuy_id_cust_val_of_goods': [3, 'EUR'],
                        'con_oc_tot_vl': [6, toplainstr((
