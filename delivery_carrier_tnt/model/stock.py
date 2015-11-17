@@ -395,8 +395,8 @@ class StockPicking(models.Model):
                        warehouse_address.country_id and
                        warehouse_address.country_id.code or ''],
                        'cpn_cpf_tel_1_id_s': [16, ''],
-                       'cpn_city_nm_s': [30, ''],
-                       'cpn_cpf_last_nm_s': [22, warehouse_address.city or ''],
+                       'cpn_city_nm_s': [30, warehouse_address.city or ''],
+                       'cpn_cpf_last_nm_s': [22, ''],
                        'cpn_fax_1_id_s': [16, ''],
                        'cpn_telex_1_id_s': [9, ''],
                        'cpn_prv_nm_s': [30, ''],
