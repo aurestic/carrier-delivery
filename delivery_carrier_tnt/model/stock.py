@@ -157,7 +157,7 @@ class StockPicking(models.Model):
             senderprovince.text = warehouse_address.state_id.name
         if warehouse_address.zip:
             senderzip = etree.SubElement(consignsender, "postcode")
-            senderzip.text = warehouse_address.zip.zfill(5)
+            senderzip.text = warehouse_address.zip
         sendercountry = etree.SubElement(consignsender, "country")
         sendercountry.text = warehouse_address.country_id.code or ''
 
@@ -183,7 +183,7 @@ class StockPicking(models.Model):
             deliveryprovince.text = self.partner_id.state_id.name
         if self.partner_id.zip:
             deliveryzip = etree.SubElement(consigndelivery, "postcode")
-            deliveryzip.text = self.partner_id.zip.zfill(5)
+            deliveryzip.text = self.partner_id.zip
         deliverycountry = etree.SubElement(consigndelivery, "country")
         deliverycountry.text = self.partner_id.country_id.code or ''
 
