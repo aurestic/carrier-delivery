@@ -53,7 +53,8 @@ class TNTFileGenerator(CarrierFileGenerator):
         """
         row_text = ""
         for row in rows:
-            row_text += u"{}\n".format("".join(row))
+            if row:
+                row_text += u"{}\n".format("".join(row))
         row_text = unicodedata.normalize('NFKD', row_text).encode(
             'ascii', 'ignore')
         file_handle.write(row_text)
