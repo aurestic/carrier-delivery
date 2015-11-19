@@ -1715,7 +1715,7 @@
     </wsdl:binding>
     <wsdl:service name="WebServService">
         <wsdl:port name="WebServServicePort" binding="tns:WebServServiceBinding">
-            <soap:address location="http://213.236.11.58:8099/SOAP?service=WebServService"/>
+            <soap:address location="http://webservices.tipsa-dinapaq.com:8099/SOAP?service=WebServService"/>
         </wsdl:port>
     </wsdl:service>
 </wsdl:definitions>
