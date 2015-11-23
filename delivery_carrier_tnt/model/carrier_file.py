@@ -31,3 +31,7 @@ class CarrierFile(models.Model):
         return res
 
     type = fields.Selection('get_type_selection', 'Type', required=True)
+    tnt_filename_sequence = fields.Many2one(
+        'ir.sequence',
+        'TNT Filename Sequence')
+    tnt_company_name = fields.Char('Company name')

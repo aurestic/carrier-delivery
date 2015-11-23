@@ -60,16 +60,22 @@ class TNTFileGenerator(CarrierFileGenerator):
         file_handle.write(row_text)
         return file_handle
 
-    def _tnt_filename(self, configuration, extension='nff'):
+    def _tnt_filename(self, configuration):
         date_now = datetime.now()
-        formatted_date = date_now.strftime('%y%m%d_%H%M%S')
-        return "TNT_{}.{}".format(formatted_date, extension)
+        formatted_date = date_now.strftime('%Y%m%d%H%M%S')
+        company_name = configuration.tnt_company_name
+        ir_sequence_env = configuration.env['ir.sequence']
+        file_sufix_number = ir_sequence_env.next_by_id(
+            configuration.tnt_filename_sequence.id)
+        contador = file_sufix_number.zfill(4)
+        return "FD6CNFF_{}_{}.{}".format(
+            company_name, formatted_date, contador)
 
-    def _get_filename_grouped(self, configuration, extension='nff'):
-        return self._tnt_filename(configuration, extension)
+    def _get_filename_grouped(self, configuration, extension='csv'):
+        return self._tnt_filename(configuration)
 
-    def _get_filename_single(self, picking, configuration, extension='nff'):
-        return self._tnt_filename(configuration, extension)
+    def _get_filename_single(self, picking, configuration, extension='csv'):
+        return self._tnt_filename(configuration)
 
     def generate_files(self, pickings, configuration):
         res = super(TNTFileGenerator, self).generate_files(

@@ -34,6 +34,7 @@
         'data/ir_sequence_data.xml',
         'view/tnt_config_view.xml',
         'view/delivery_view.xml',
+        'view/carrier_file_view.xml',
         'view/stock_view.xml',
     ],
     'demo': [],
