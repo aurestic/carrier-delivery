@@ -152,8 +152,8 @@ class StockPicking(models.Model):
         # de si es a Canarias o Azores y solo para estos destinos
 
         dhl_facility = self._dhl_facility_code()
-        facility_code = "{} {}".format(dhl_facility.facility_code,
-                                       dhl_facility.facility_name)
+        facility_code = u"{} {}".format(dhl_facility.facility_code,
+                                        dhl_facility.facility_name)
         pickup_datetime = datetime.strptime(self.date_done,
                                             DEFAULT_SERVER_DATETIME_FORMAT)
         rendered_label = label_template.render({
