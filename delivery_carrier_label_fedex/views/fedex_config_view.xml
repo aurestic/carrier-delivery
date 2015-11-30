@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="fedex_config_tree_view" model="ir.ui.view">
+            <field name="name">fedex.config.tree</field>
+            <field name="model">fedex.config</field>
+            <field name="arch" type="xml">
+                <tree string="Fedex Config" version="7.0">
+                    <field name="name"/>
+                    <field name="is_test"/>
+                    <field name="account_number"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="fedex_config_form_view" model="ir.ui.view">
+            <field name="name">fedex.config.form</field>
+            <field name="model">fedex.config</field>
+            <field name="arch" type="xml">
+                <form string="Fedex Config" version="7.0">
+                    <sheet string="Fedex Config">
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" class="oe_inline"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="account_number"/>
+                                <field name="key"/>
+                                <field name="password" password="True"/>
+                            </group>
+                            <group>
+                                <field name="is_test" class="oe_inline"/>
+                                <field name="meter_number"/>
+                                <field name="freight_account_number"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="weight_uom"/>
+                                <field name="dimension_uom"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="fedex_config_action" model="ir.actions.act_window">
+            <field name="name">Fedex</field>
+            <field name="res_model">fedex.config</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="fedex_config_tree_view"/>
+        </record>
+
+        <menuitem id="fedex_config_menu" parent="base_delivery_carrier_label.menu_carriers_config"
+            action="fedex_config_action" sequence="20"/>
+
+    </data>
+</openerp>
