@@ -42,6 +42,11 @@
                                 <field name="weight_uom"/>
                                 <field name="dimension_uom"/>
                             </group>
+                            <group>
+                                <field name="default_service"/>
+                                <field name="label_type"/>
+                                <field name="label_template"/>
+                            </group>
                         </group>
                     </sheet>
                 </form>

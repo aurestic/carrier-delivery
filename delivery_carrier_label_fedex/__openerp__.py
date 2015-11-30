@@ -31,7 +31,8 @@
     'data': [
         'security/ir.model.access.csv',
         'views/fedex_config_view.xml',
-        'views/delivery_view.xml'
+        'views/delivery_view.xml',
+        'views/stock_view.xml'
     ],
     'installable': True,
     'auto_install': False,
