@@ -46,7 +46,7 @@ class DeliveryCarrier(models.Model):
         ('054', 'DOCUMENTOS'),
         ('070', 'INTERNACIONAL T'),
         ('072', 'INTERNACIONAL A'),
-        ('076', 'CLASSIC')
+        ('076', 'CLASSIC'),
         ('118', 'VINO')
 
     ]
