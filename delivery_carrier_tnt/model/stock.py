@@ -614,7 +614,7 @@ class StockPicking(models.Model):
         except:
             raise exceptions.Warning(_('Error sending XML Request'))
 
-        return res, lines_manifest
+        return res, lines_manifest, consigment_code
 
     @api.multi
     def _generate_tnt_label(self, package_ids=None):
@@ -625,7 +625,8 @@ class StockPicking(models.Model):
             raise exceptions.Warning(
                 _('Please define an address in the %s warehouse') % (
                     self.warehouse_id.name))
-        response, lines_manifest = self._tnt_transm_envio_request()
+        response, lines_manifest, consignment_code =\
+            self._tnt_transm_envio_request()
         if "<consignmentLabelData>" not in response:
             raise exceptions.Warning(("Error in xml communication: %s") % (
                 response))
@@ -640,6 +641,7 @@ class StockPicking(models.Model):
                               '/HTMLRoutingLabelRenderer_Local.xsl')
         self.lines_manifest = lines_manifest
         self.datetime_label = datetime.now()
+        self.carrier_tracking_ref = consignment_code
         try:
             defpath = os.environ.get('PATH', os.defpath).split(os.pathsep)
             if hasattr(sys, 'frozen'):
