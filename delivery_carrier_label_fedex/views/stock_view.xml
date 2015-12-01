@@ -8,6 +8,7 @@
           <field name="arch" type="xml">
             <field name="carrier_code" position="after">
               <field name="fedex_service_type" attrs="{'invisible': [('carrier_type', '!=', 'fedex')], 'required': [('carrier_type', '=', 'fedex')]}"/>
+              <field name="fedex_commodity_description" attrs="{'invisible': [('carrier_type', '!=', 'fedex')], 'required': [('carrier_type', '=', 'fedex')]}"/>
             </field>
           </field>
         </record>

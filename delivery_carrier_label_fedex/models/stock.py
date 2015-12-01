@@ -49,6 +49,10 @@ class StockPicking(models.Model):
 
     fedex_service_type = fields.Selection(
         FEDEX_SERVICE_TYPES, string="Fedex Service")
+    fedex_commodity_description = fields.Char(
+        'Commodity Description',
+        help='Description of items for customs clearance',
+        size=20)
 
     @api.onchange('carrier_id')
     def carrier_id_change(self):
@@ -88,12 +92,15 @@ class StockPicking(models.Model):
         shipment = FedexProcessShipmentRequest(fedex_config)
         requested_shipment = shipment.RequestedShipment
         shipment.RequestedShipment.DropoffType = 'REGULAR_PICKUP'
-        shipment.RequestedShipment.ServiceType = 'PRIORITY_OVERNIGHT'
-        shipment.RequestedShipment.PackagingType = 'YOUR_PACKAGING'
+        shipment.RequestedShipment.ServiceType = self.fedex_service_type
+        shipment.RequestedShipment.PackagingType = 'FEDEX_PAK'
+        requested_shipment.TotalInsuredValue.Currency = 'EUR'
+        requested_shipment.TotalInsuredValue.Amount = 0.0
 
+        shipment.RequestedShipment.Shipper.AccountNumber =\
+            odoo_fedex_config.account_number
         # Shipper contact info.
         shipper_contact = shipment.RequestedShipment.Shipper.Contact
-        shipper_contact.PersonName = warehouse_partner.name
         shipper_contact.CompanyName = warehouse_partner.name
         shipper_contact.PhoneNumber = warehouse_partner.phone
 
@@ -148,28 +155,65 @@ class StockPicking(models.Model):
         requested_shipment.LabelSpecification.LabelPrintingOrientation =\
             'BOTTOM_EDGE_OF_TEXT_FIRST'
 
+        # Sale amount and currency
+        total_amount = 0.0
+        currency = self.company_id.currency_id.name
+        if self.sale_id:
+            total_amount = self.sale_id.amount_total
+            currency = self.sale_id.pricelist_id.currency_id.name
+
         number_of_packages = self.number_of_packages or 1
-        # if warehouse_partner.country_id.code != \
-        #         self.partner_id.country_id.code:
-        #     # Add customs Value
-        #     customs_detail = requested_shipment.CustomsClearanceDetail
-        #     duties_payment = customs_detail.DutiesPayment
-        #     # duties_payment.PaymentType = 'RECIPIENT'
-        #     customs_detail.CustomsValue.Currency = 'EUR'
-        #     customs_detail.CustomsValue.Amount = 100
-        #     # customs_detail.Commodities.Descriptions = 'GOODS'
-
         picking_weight = self.weight or 1.0
-        for package in range(number_of_packages):
-            package_weight = shipment.create_wsdl_object_of_type('Weight')
-            package_weight.Value = picking_weight / float(number_of_packages)
-            package_weight.Units = odoo_fedex_config.weight_uom
+        add_commodities = False
+        commodities = []
+        if warehouse_partner.country_id.code != \
+                self.partner_id.country_id.code:
+            # Add customs Value
+            customs_detail = requested_shipment.CustomsClearanceDetail
+            duties_payment = customs_detail.DutiesPayment
+            duties_payment.PaymentType = 'RECIPIENT'
+            customs_detail.CustomsValue.Currency = currency
+            customs_detail.CustomsValue.Amount = total_amount
+            customs_detail.ClearanceBrokerage = None
+            customs_detail.DocumentContent = None
+            customs_detail.FreightOnValue = None
+            add_commodities = True
 
-            package = shipment.create_wsdl_object_of_type(
-                'RequestedPackageLineItem')
-            package.PhysicalPackaging = 'BOX'
-            package.Weight = package_weight
-            shipment.add_package(package)
+        # Create a package
+
+        # requested_shipment.PackageCount = number_of_packages
+        pack_weight = picking_weight / float(number_of_packages)
+        package_weight = shipment.create_wsdl_object_of_type('Weight')
+        package_weight.Value = pack_weight
+        package_weight.Units = odoo_fedex_config.weight_uom
+        package = shipment.create_wsdl_object_of_type(
+            'RequestedPackageLineItem')
+        package.PhysicalPackaging = 'BOX'
+        package.Weight = package_weight
+        package.SequenceNumber = 1
+        package.GroupPackageCount = 1
+        shipment.add_package(package)
+
+        # for package_seq in range(number_of_packages):
+        if add_commodities:
+            commodity = shipment.create_wsdl_object_of_type('Commodity')
+            commodity.NumberOfPieces = 1
+            commodity.CountryOfManufacture =\
+                warehouse_partner.country_id.code
+            commodity.Description = self.fedex_commodity_description
+            commodity.Weight.Units = odoo_fedex_config.weight_uom
+            commodity.Weight.Value = pack_weight
+            commodity.Quantity = 1
+            commodity.QuantityUnits = 'PCE'
+            commodity.UnitPrice.Currency = currency
+            commodity.UnitPrice.Amount = total_amount
+            commodities.append(commodity)
+
+        if commodities:
+            requested_shipment.CustomsClearanceDetail.Commodities = commodities
+
+        requested_shipment.TotalWeight.Units = odoo_fedex_config.weight_uom
+        requested_shipment.TotalWeight.Value = picking_weight
 
         labels = []
         label_extension = odoo_fedex_config.label_type.lower()
