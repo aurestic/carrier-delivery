@@ -129,6 +129,18 @@ class StockPicking(models.Model):
         if not self.seur_service_code or not self.seur_product_code:
             raise exceptions.Warning(_(
                 'Please select Seur service and product codes in picking'))
+        international = False
+        warehouse = self.picking_type_id and \
+            self.picking_type_id.warehouse_id or False
+
+        if self.partner_id and self.partner_id.country_id and \
+            self.partner_id.country_id.code and warehouse and \
+            warehouse.partner_id and warehouse.partner_id.country_id and \
+            warehouse.partner_id.country_id.code and \
+            self.partner_id.country_id.code != warehouse.partner_id.\
+                country_id.code:
+                international = True
+
         data = {
             'servicio': unidecode(self.seur_service_code),
             'product': unidecode(self.seur_product_code),
@@ -157,6 +169,7 @@ class StockPicking(models.Model):
             'cliente_telefono': unidecode(
                 partner.phone or partner.mobile or ''),
             'cliente_atencion': unidecode(self.partner_id.name),
+            'id_mercancia': international and '400' or '',
         }
         return data
 
