@@ -90,11 +90,14 @@ class StockPicking(models.Model):
                 odoo_fedex_config.freight_account_number),
             use_test_server=odoo_fedex_config.is_test)
         shipment = FedexProcessShipmentRequest(fedex_config)
+
+        company_currency = self.company_id.currency_id
+
         requested_shipment = shipment.RequestedShipment
         shipment.RequestedShipment.DropoffType = 'REGULAR_PICKUP'
         shipment.RequestedShipment.ServiceType = self.fedex_service_type
         shipment.RequestedShipment.PackagingType = 'FEDEX_PAK'
-        requested_shipment.TotalInsuredValue.Currency = 'EUR'
+        requested_shipment.TotalInsuredValue.Currency = company_currency.name
         requested_shipment.TotalInsuredValue.Amount = 0.0
 
         shipment.RequestedShipment.Shipper.AccountNumber =\
@@ -157,10 +160,12 @@ class StockPicking(models.Model):
 
         # Sale amount and currency
         total_amount = 0.0
-        currency = self.company_id.currency_id.name
         if self.sale_id:
             total_amount = self.sale_id.amount_total
-            currency = self.sale_id.pricelist_id.currency_id.name
+            if self.sale_id.currency_id.id != company_currency.id:
+                total_amount = self.sale_id.currency_id.with_context(
+                    date=self.sale_id.date_order).compute(
+                    self.sale_id.amount_total, company_currency)
 
         number_of_packages = self.number_of_packages or 1
         picking_weight = self.weight or 1.0
@@ -172,7 +177,7 @@ class StockPicking(models.Model):
             customs_detail = requested_shipment.CustomsClearanceDetail
             duties_payment = customs_detail.DutiesPayment
             duties_payment.PaymentType = 'RECIPIENT'
-            customs_detail.CustomsValue.Currency = currency
+            customs_detail.CustomsValue.Currency = company_currency.name
             customs_detail.CustomsValue.Amount = total_amount
             customs_detail.ClearanceBrokerage = None
             customs_detail.DocumentContent = None
@@ -205,7 +210,7 @@ class StockPicking(models.Model):
             commodity.Weight.Value = pack_weight
             commodity.Quantity = 1
             commodity.QuantityUnits = 'PCE'
-            commodity.UnitPrice.Currency = currency
+            commodity.UnitPrice.Currency = company_currency.name
             commodity.UnitPrice.Amount = total_amount
             commodities.append(commodity)
 
