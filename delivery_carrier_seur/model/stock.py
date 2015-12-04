@@ -118,6 +118,9 @@ class StockPicking(models.Model):
 
         self.write({'carrier_tracking_ref': tracking_ref})
 
+        if config.file_type == 'pdf':
+            label = label.decode('base64')
+
         return [{
             'name': self.name + '_' + tracking_ref + '.' + config.file_type,
             'file': label,
