@@ -154,8 +154,8 @@ class StockPicking(models.Model):
             'referencia_expedicion': unidecode(self.name),
             'ref_bulto': '',
             'clave_portes': 'F',
-            'clave_reembolso': self.sale_id.amount_total and 'F' or '',
-            'valor_reembolso': self.sale_id.amount_total or '',
+            'clave_reembolso': '',
+            'valor_reembolso': '',
             'cliente_nombre': unidecode(partner.name),
             'cliente_direccion': unidecode(partner.street +
                                            (partner.street2 or '')),
