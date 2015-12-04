@@ -25,8 +25,7 @@ UPS_LABEL_FORMAT = [
     ('ZPL', 'ZPL'),
     ('GIF', 'GIF'),
     ('STARPL', 'STARPL'),
-    ('SPL', 'SPL'),
-    ('PDF', 'PDF')
+    ('SPL', 'SPL')
 ]
 
 
