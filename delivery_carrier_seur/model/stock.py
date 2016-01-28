@@ -54,6 +54,20 @@ class StockPicking(models.Model):
         selection='_get_seur_products', string='Seur Product Code',
         default=False)
 
+    @api.model
+    def create(self, vals):
+        res = super(StockPicking, self).create(vals)
+        if 'carrier_id' in vals:
+            res.carrier_id_change()
+        return res
+
+    @api.one
+    def write(self, vals):
+        res = super(StockPicking, self).write(vals)
+        if 'carrier_id' in vals:
+            self.carrier_id_change()
+        return res
+
     def _get_seur_services(self):
         return self.env['delivery.carrier'].SEUR_SERVICES
 
@@ -61,8 +75,9 @@ class StockPicking(models.Model):
         return self.env['delivery.carrier'].SEUR_PRODUCTS
 
     @api.onchange('carrier_id')
-    def carrier_id_onchange(self):
-        if not self.carrier_id:
+    def carrier_id_change(self):
+        super(StockPicking, self).carrier_id_change()
+        if not self.carrier_id or self.carrier_id.type != 'seur':
             return
         carrier = self.carrier_id
         self.seur_service_code = carrier.seur_service_code

@@ -98,16 +98,30 @@ class StockPicking(models.Model):
         selection='_get_tnt_services',
         string='TNT Service Code', default=False)
 
+    @api.model
+    def create(self, vals):
+        res = super(StockPicking, self).create(vals)
+        if 'carrier_id' in vals:
+            res.carrier_id_change()
+        return res
+
+    @api.one
+    def write(self, vals):
+        res = super(StockPicking, self).write(vals)
+        if 'carrier_id' in vals:
+            self.carrier_id_change()
+        return res
+
     def _get_tnt_services(self):
         return self.env['delivery.carrier'].TNT_SERVICES
 
     @api.onchange('carrier_id')
-    def carrier_id_onchange(self):
-        if not self.carrier_id:
+    def carrier_id_change(self):
+        super(StockPicking, self).carrier_id_change()
+        if not self.carrier_id or self.carrier_id.type != 'tnt':
             return
         carrier = self.carrier_id
         self.tnt_service_code = carrier.tnt_service_code
-        super(StockPicking, self).carrier_id_onchange()
 
     @api.multi
     def _tnt_transm_envio_request(self):
