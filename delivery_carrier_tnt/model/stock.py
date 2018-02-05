@@ -155,9 +155,9 @@ class StockPicking(models.Model):
         consignsender = etree.SubElement(consignlabel, "sender")
         warehouse_address = self.picking_type_id.warehouse_id.partner_id
         sendername = etree.SubElement(consignsender, "name")
-        sendername.text = warehouse_address.name
+        sendername.text = warehouse_address.name[0:29]
         senderaddress1 = etree.SubElement(consignsender, "addressLine1")
-        senderaddress1.text = warehouse_address.street or ''
+        senderaddress1.text = warehouse_address.street[0:29] or ''
         if warehouse_address.street2:
             senderaddress2 = etree.SubElement(consignsender, "addressLine2")
             senderaddress2.text = warehouse_address.street2
@@ -179,10 +179,10 @@ class StockPicking(models.Model):
         deliveryname = etree.SubElement(consigndelivery, "name")
         deliveryname.text = (
             self.partner_id and self.partner_id.parent_id and
-            self.partner_id.parent_id.name) or (
-            self.partner_id and self.partner_id.name) or ''
+            self.partner_id.parent_id.name[0:29]) or (
+            self.partner_id and self.partner_id.name[0:29]) or ''
         deliveryaddress1 = etree.SubElement(consigndelivery, "addressLine1")
-        deliveryaddress1.text = self.partner_id.street or ''
+        deliveryaddress1.text = self.partner_id.street[0:29] or ''
         if self.partner_id.street2:
             deliveryaddress2 = etree.SubElement(
                 consigndelivery, "addressLine2")
@@ -205,8 +205,8 @@ class StockPicking(models.Model):
         contactname = etree.SubElement(consigncontact, "name")
         contactname.text = (
             self.partner_id and self.partner_id.parent_id and
-            self.partner_id.parent_id.name) or (
-            self.partner_id and self.partner_id.name) or ''
+            self.partner_id.parent_id.name[0:29]) or (
+            self.partner_id and self.partner_id.name[0:29]) or ''
         if self.partner_id.phone:
             contactphone = etree.SubElement(consigncontact, "telephoneNumber")
             contactphone.text = self.partner_id.phone
