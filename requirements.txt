@@ -1,0 +1,4 @@
+PyPDF2==1.18
+unidecode
+pycountry
+suds-jurko==0.6
