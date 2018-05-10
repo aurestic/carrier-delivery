@@ -180,3 +180,77 @@ msgstr "Fichero del transportista"
 #: field:delivery.carrier.file.generate,picking_ids:0
 msgid "Delivery Orders"
 msgstr "Albaranes de salida"
+
+#. module: base_delivery_carrier_files
+#: code:addons/base_delivery_carrier_files/wizard/report_picking_by_carrier.py:95
+#: code:addons/base_delivery_carrier_files/wizard/report_picking_by_carrier.py:371
+#, python-format#. module: base_delivery_carrier_files
+#: code:addons/base_delivery_carrier_files/wizard/report_picking_by_carrier.py:237
+#, python-format
+msgid "client_name"
+msgstr "Cliente"
+
+msgid "Deliveries"
+msgstr "Entregas para transportistas"
+
+#. module: base_delivery_carrier_files
+#: field:picking.by.carrier.report,export_word:0
+msgid "Export word"
+msgstr "Exportar a documento word"
+
+#. module: base_delivery_carrier_files
+#: code:addons/base_delivery_carrier_files/wizard/report_picking_by_carrier.py:150
+#, python-format
+msgid "GENERAL LIST OF CARRIERS FOR (%s)"
+msgstr "LISTADO GENERAL DE TRANSPORTISTAS PARA (%s)"
+
+#. module: base_delivery_carrier_files
+#: code:addons/base_delivery_carrier_files/wizard/report_picking_by_carrier.py:254
+#, python-format
+msgid "Lumps"
+msgstr "Bultos"
+
+#. module: base_delivery_carrier_files
+#: code:addons/base_delivery_carrier_files/wizard/report_picking_by_carrier.py:262
+#, python-format
+msgid "Quilos"
+msgstr "Quilos"
+
+#. module: base_delivery_carrier_files
+#: code:addons/base_delivery_carrier_files/wizard/report_picking_by_carrier.py:216
+#, python-format
+msgid "Reference"
+msgstr "Albarán"
+
+#. module: base_delivery_carrier_files
+#: model:ir.actions.act_window,name:base_delivery_carrier_files.action_picking_by_carriers
+msgid "Report Pickings by Carrier"
+msgstr "Albaranes a cargar por transportistas"
+
+#. module: base_delivery_carrier_files
+#: code:addons/base_delivery_carrier_files/wizard/report_picking_by_carrier.py:270
+#, python-format
+msgid "Volume"
+msgstr "Volumen"
+
+#. module: base_delivery_carrier_files
+#: code:addons/base_delivery_carrier_files/wizard/report_picking_by_carrier.py:300
+#, python-format
+msgid "client_name"
+msgstr "Cliente"
+
+#. module: base_delivery_carrier_files
+#: code:addons/base_delivery_carrier_files/wizard/report_picking_by_carrier.py:310
+#, python-format
+msgid "mobile"
+msgstr "Teléfono"
+#. module: base_delivery_carrier_files
+#: model:ir.actions.act_window,name:base_delivery_carrier_files.action_picking_by_carriers
+msgid "Report Pickings by Carrier"
+msgstr "Albaranes por transportistas"
+
+#. module: base_delivery_carrier_files
+#: code:addons/base_delivery_carrier_files/wizard/report_picking_by_carrier.py:227
+#, python-format
+msgid "Datos Entrega"
+msgstr "Datos Entrega" 

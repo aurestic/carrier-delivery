@@ -20,3 +20,4 @@
 ##############################################################################
 
 from . import generate_carrier_files
+from . import report_picking_by_carrier

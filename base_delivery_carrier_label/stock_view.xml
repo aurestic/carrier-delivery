@@ -10,7 +10,7 @@
       <field name="arch" type="xml">
         <field name="state" position="before">
           <button name="action_generate_carrier_label" states="done"
-            string="Create Shipping Label" type="object"/>
+    view_picking_internal_search_inherit        string="Create Shipping Label" type="object"/>
         </field>
         <xpath expr="//page[@string='Additional Info']//field[@name='carrier_tracking_ref']" position="after">
           <field name="carrier_type"/>
