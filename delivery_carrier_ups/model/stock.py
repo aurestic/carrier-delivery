@@ -59,6 +59,10 @@ class StockPicking(models.Model):
                                         string='Ups Service',
                                         default='standard')
 
+    length = fields.Float(string='Length', default=30)
+    width = fields.Float(string='Width', default=30)
+    height = fields.Float(string='height', default=30)
+
     @api.multi
     def _generate_ups_label(self, package_ids=None):
         self.ensure_one()
@@ -106,9 +110,9 @@ class StockPicking(models.Model):
             packages.append({
                 'packaging_type': '02',
                 'dimensions': {
-                    'length': '30',
-                    'width': '30',
-                    'height': '30'
+                    'length': self.length,
+                    'width': self.width,
+                    'height': self.height
                 },
                 'weight': weight / float(number_of_packages)
             })

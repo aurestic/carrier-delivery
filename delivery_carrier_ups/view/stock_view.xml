@@ -9,6 +9,11 @@
             <field name="carrier_code" position="after">
               <field name="ups_service_type" attrs="{'invisible': [('carrier_type', '!=', 'ups')], 'required': [('carrier_type', '=', 'ups')]}"/>
             </field>
+            <field name="number_of_packages" position="after">
+              <field name="length" attrs="{'invisible': [('carrier_type', '!=', 'ups')], 'required': [('carrier_type', '=', 'ups')]}"/>
+              <field name="width" attrs="{'invisible': [('carrier_type', '!=', 'ups')], 'required': [('carrier_type', '=', 'ups')]}"/>
+              <field name="height" attrs="{'invisible': [('carrier_type', '!=', 'ups')], 'required': [('carrier_type', '=', 'ups')]}"/>
+            </field>
           </field>
         </record>
 
