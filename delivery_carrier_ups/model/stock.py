@@ -99,7 +99,7 @@ class StockPicking(models.Model):
             'country': self.partner_id.country_id.code,
             'postal_code': self.partner_id.zip,
             'phone': self.partner_id.mobile or self.partner_id.phone or '',
-            'email': self.partner.email or ''
+            'email': self.partner_id.email or ''
         }
 
         number_of_packages = self.number_of_packages or 1
