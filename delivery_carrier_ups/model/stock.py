@@ -88,6 +88,7 @@ class StockPicking(models.Model):
             'country': warehouse_partner.country_id.code,
             'postal_code': warehouse_partner.zip,
             'phone': warehouse_partner.phone or '',
+            'email': warehouse_partner.email or ''
         }
 
         to_addr = {
@@ -98,6 +99,7 @@ class StockPicking(models.Model):
             'country': self.partner_id.country_id.code,
             'postal_code': self.partner_id.zip,
             'phone': self.partner_id.mobile or self.partner_id.phone or '',
+            'email': self.partner.email or ''
         }
 
         number_of_packages = self.number_of_packages or 1
