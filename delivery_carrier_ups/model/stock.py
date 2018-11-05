@@ -64,6 +64,14 @@ class StockPicking(models.Model):
     height = fields.Float(string='height', default=30)
 
     @api.multi
+    def _generate_ups_contry_code(self, partner):
+        if partner.country_id.code == 'ES' and partner.zip.startswith('35'):  # If Canary Islands
+            country_code = 'IC'
+        else:
+            country_code = partner.country_id.code
+        return country_code
+
+    @api.multi
     def _generate_ups_label(self, package_ids=None):
         self.ensure_one()
         if not self.carrier_id.ups_config_id:
@@ -89,7 +97,7 @@ class StockPicking(models.Model):
             'address1': warehouse_partner.street,
             'address2': warehouse_partner.street2 or '',
             'city': warehouse_partner.city,
-            'country': warehouse_partner.country_id.code,
+            'country': self._generate_ups_contry_code(warehouse_partner),
             'postal_code': warehouse_partner.zip,
             'phone': warehouse_partner.phone or '',
             'email': warehouse_partner.email or ''
@@ -100,7 +108,7 @@ class StockPicking(models.Model):
             'address1': self.partner_id.street,
             'address2': self.partner_id.street2 or '',
             'city': self.partner_id.city,
-            'country': self.partner_id.country_id.code,
+            'country': self._generate_ups_contry_code(self.partner_id),
             'postal_code': self.partner_id.zip,
             'phone': self.partner_id.mobile or self.partner_id.phone or '',
             'email': self.partner_id.email or ''
