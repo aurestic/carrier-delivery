@@ -105,11 +105,12 @@ class StockPicking(models.Model):
             res.carrier_id_change()
         return res
 
-    @api.one
+    @api.multi
     def write(self, vals):
         res = super(StockPicking, self).write(vals)
         if 'carrier_id' in vals:
-            self.carrier_id_change()
+            for picking in self:
+                picking.carrier_id_change()
         return res
 
     def _get_tnt_services(self):
