@@ -58,7 +58,7 @@ class StockPicking(models.Model):
     ups_service_type = fields.Selection('_get_ups_service_type',
                                         string='Ups Service',
                                         default='standard')
-
+    ups_shipment_description = fields.Char(string='UPS Description', size=49)
     length = fields.Float(string='Length', default=30)
     width = fields.Float(string='Width', default=30)
     height = fields.Float(string='height', default=30)
@@ -70,6 +70,14 @@ class StockPicking(models.Model):
         else:
             country_code = partner.country_id.code
         return country_code
+
+    @api.multi
+    def _generate_ups_state_code(self, partner):
+        if partner.country_id.code in ['US', 'CA']:
+            state_code = partner.state_id.code
+        else:
+            state_code = ''
+        return state_code
 
     @api.multi
     def _generate_ups_label(self, package_ids=None):
@@ -94,6 +102,7 @@ class StockPicking(models.Model):
             'address2': warehouse_partner.street2 or '',
             'city': warehouse_partner.city,
             'country': self._generate_ups_contry_code(warehouse_partner),
+            'state': self._generate_ups_state_code(warehouse_partner),
             'postal_code': warehouse_partner.zip,
             'phone': warehouse_partner.phone or '',
             'email': warehouse_partner.email or ''
@@ -105,6 +114,7 @@ class StockPicking(models.Model):
             'address2': self.partner_id.street2 or '',
             'city': self.partner_id.city,
             'country': self._generate_ups_contry_code(self.partner_id),
+            'state': self._generate_ups_state_code(self.partner_id),
             'postal_code': self.partner_id.zip,
             'phone': self.partner_id.mobile or self.partner_id.phone or '',
             'email': self.partner_id.email or ''
@@ -128,6 +138,7 @@ class StockPicking(models.Model):
             shipment = ups_client.create_shipment(
                 from_addr, to_addr, packages, self.ups_service_type,
                 file_format=ups_config.label_file_format,
+                description=self.ups_shipment_description,
                 dimensions_unit=ups_config.dimension_uom,
                 weight_unit=ups_config.weight_uom)
         except UPSError, e:
