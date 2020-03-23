@@ -2,5 +2,5 @@ PyPDF2==1.18
 unidecode
 pycountry
 suds-jurko==0.6
-git+https://github.com/diagramsoftware/ClassicUPS.git#egg=ClassicUPS
+git+https://github.com/aurestic/ClassicUPS.git#egg=ClassicUPS
 
